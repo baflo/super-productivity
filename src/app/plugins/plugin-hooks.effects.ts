@@ -1,8 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { filter, map, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
+import { EMPTY, from } from 'rxjs';
 
 import {
   selectTaskById,
@@ -33,6 +41,7 @@ import {
   moveTaskToTopInTodayList,
   moveTaskUpInTodayList,
 } from '../features/work-context/store/work-context-meta.actions';
+import { PlannerActions } from '../features/planner/store/planner.actions';
 
 @Injectable()
 export class PluginHooksEffects {
@@ -99,6 +108,77 @@ export class PluginHooksEffects {
             map(() => EMPTY),
           ),
         ),
+      ),
+    { dispatch: false },
+  );
+
+  taskScheduleChange$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          TaskSharedActions.scheduleTaskWithTime,
+          TaskSharedActions.reScheduleTaskWithTime,
+          TaskSharedActions.unscheduleTask,
+          TaskSharedActions.dismissReminderOnly,
+          TaskSharedActions.planTasksForToday,
+        ),
+        switchMap((action) => {
+          // Determine task ID(s) based on action type
+          const taskIds: string[] = [];
+
+          if ('task' in action) {
+            taskIds.push(action.task.id);
+          } else if ('id' in action) {
+            taskIds.push(action.id);
+          } else if ('taskIds' in action) {
+            taskIds.push(...action.taskIds);
+          }
+
+          // Process each task
+          return from(taskIds).pipe(
+            mergeMap((taskId) =>
+              this.store.pipe(
+                select(selectTaskById, { id: taskId }),
+                take(1),
+                filter((task) => !!task),
+                tap((task: Task) => {
+                  this.pluginService.dispatchHook(PluginHooks.TASK_SCHEDULE_CHANGE, {
+                    task,
+                    action: action.type,
+                  });
+                }),
+                map(() => EMPTY),
+              ),
+            ),
+          );
+        }),
+      ),
+    { dispatch: false },
+  );
+
+  plannerScheduleChange$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PlannerActions.transferTask, PlannerActions.planTaskForDay),
+        switchMap((action) => {
+          const taskId = 'task' in action ? action.task.id : undefined;
+          if (!taskId) {
+            return EMPTY;
+          }
+
+          return this.store.pipe(
+            select(selectTaskById, { id: taskId }),
+            take(1),
+            filter((task) => !!task),
+            tap((task: Task) => {
+              this.pluginService.dispatchHook(PluginHooks.TASK_SCHEDULE_CHANGE, {
+                task,
+                action: action.type,
+              });
+            }),
+            map(() => EMPTY),
+          );
+        }),
       ),
     { dispatch: false },
   );

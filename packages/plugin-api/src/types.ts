@@ -13,6 +13,7 @@ export enum PluginHooks {
   TASK_COMPLETE = 'taskComplete',
   TASK_UPDATE = 'taskUpdate',
   TASK_DELETE = 'taskDelete',
+  TASK_SCHEDULE_CHANGE = 'taskScheduleChange',
   CURRENT_TASK_CHANGE = 'currentTaskChange',
   FINISH_DAY = 'finishDay',
   LANGUAGE_CHANGE = 'languageChange',
@@ -139,6 +140,11 @@ export interface TaskDeletePayload {
   taskId: string;
 }
 
+export interface TaskScheduleChangePayload {
+  task: Task;
+  action: string;
+}
+
 export interface CurrentTaskChangePayload {
   current: Task | null;
   previous: Task | null;
@@ -183,6 +189,7 @@ export interface HookPayloadMap {
   [PluginHooks.TASK_COMPLETE]: TaskCompletePayload;
   [PluginHooks.TASK_UPDATE]: TaskUpdatePayload;
   [PluginHooks.TASK_DELETE]: TaskDeletePayload;
+  [PluginHooks.TASK_SCHEDULE_CHANGE]: TaskScheduleChangePayload;
   [PluginHooks.CURRENT_TASK_CHANGE]: CurrentTaskChangePayload;
   [PluginHooks.FINISH_DAY]: FinishDayPayload;
   [PluginHooks.LANGUAGE_CHANGE]: LanguageChangePayload;

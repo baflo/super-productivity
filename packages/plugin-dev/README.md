@@ -159,11 +159,18 @@ The plugin receives a global `PluginAPI` object with these capabilities:
 
 Register handlers for lifecycle events:
 
+- `taskCreated` - New task created
 - `taskComplete` - Task marked as done
 - `taskUpdate` - Task modified
 - `taskDelete` - Task removed
+- `taskScheduleChange` - Task scheduling changed (time-based or day planning)
 - `currentTaskChange` - Active task changed
 - `finishDay` - End of day
+- `languageChange` - Language/work context changed
+- `persistedDataUpdate` - Plugin data updated
+- `action` - Any NgRx action (advanced)
+- `anyTaskUpdate` - Any task-related action
+- `projectListUpdate` - Project task lists modified
 
 ### Example Usage
 
@@ -176,6 +183,27 @@ PluginAPI.registerHook('taskComplete', async (task) => {
     msg: `Great job completing: ${task.title}`,
     type: 'SUCCESS',
   });
+});
+
+// Register a task schedule change handler
+PluginAPI.registerHook('taskScheduleChange', async (payload) => {
+  console.log('Task schedule changed:', payload);
+
+  const { task, action } = payload;
+
+  // Sync to external calendar when scheduled with time
+  if (task.dueWithTime) {
+    await syncToExternalCalendar(task);
+    PluginAPI.showSnack({
+      msg: `Task "${task.title}" synced to calendar`,
+      type: 'SUCCESS',
+    });
+  }
+
+  // Track planning activity
+  if (task.dueDay) {
+    console.log(`Task planned for day: ${task.dueDay}`);
+  }
 });
 
 // Add a keyboard shortcut
