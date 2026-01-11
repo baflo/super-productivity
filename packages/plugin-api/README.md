@@ -60,9 +60,9 @@ PluginAPI.registerShortcut({
   "id": "my-awesome-plugin",
   "manifestVersion": 1,
   "version": "1.0.0",
-  "minSupVersion": "13.0.0",
+  "minSupVersion": "16.8.0",
   "description": "An awesome plugin for Super Productivity",
-  "hooks": ["taskComplete", "taskUpdate"],
+  "hooks": ["taskComplete", "taskUpdate", "taskScheduleChange"],
   "permissions": ["showSnack", "getTasks", "addTask", "showIndexHtmlAsView"],
   "iFrame": true,
   "icon": "icon.svg"
@@ -98,12 +98,17 @@ PluginAPI.registerShortcut({
 ```typescript
 enum PluginHooks {
   TASK_COMPLETE = 'taskComplete',
+  TASK_CREATED = 'taskCreated',
   TASK_UPDATE = 'taskUpdate',
   TASK_DELETE = 'taskDelete',
+  TASK_SCHEDULE_CHANGE = 'taskScheduleChange',
+  CURRENT_TASK_CHANGE = 'currentTaskChange',
   FINISH_DAY = 'finishDay',
   LANGUAGE_CHANGE = 'languageChange',
   PERSISTED_DATA_UPDATE = 'persistedDataUpdate',
   ACTION = 'action',
+  ANY_TASK_UPDATE = 'anyTaskUpdate',
+  PROJECT_LIST_UPDATE = 'projectListUpdate',
 }
 ```
 

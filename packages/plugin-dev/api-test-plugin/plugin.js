@@ -239,6 +239,15 @@ PluginAPI.registerHook(PluginAPI.Hooks.CURRENT_TASK_CHANGE, (taskData) => {
   console.log('API Test - CURRENT_TASK_CHANGE hook fired:', taskData);
 });
 
+PluginAPI.registerHook(PluginAPI.Hooks.TASK_SCHEDULE_CHANGE, (taskData) => {
+  console.log('API Test - TASK_SCHEDULE_CHANGE hook fired:', taskData);
+  console.log('  Task ID:', taskData.task.id);
+  console.log('  Task title:', taskData.task.title);
+  console.log('  dueWithTime:', taskData.task.dueWithTime);
+  console.log('  reminderId:', taskData.task.reminderId);
+  console.log('  Action:', taskData.action);
+});
+
 // Register UI elements
 
 PluginAPI.registerShortcut({
