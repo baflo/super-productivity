@@ -11,8 +11,6 @@ import {
 } from '../../../errors/errors';
 import { WebDavHttpHeader, WebDavHttpMethod, WebDavHttpStatus } from './webdav.const';
 
-/* eslint-disable @typescript-eslint/naming-convention */
-
 export class WebdavApi {
   private static readonly L = 'WebdavApi';
   private xmlParser: WebdavXmlParser;
@@ -489,7 +487,7 @@ export class WebdavApi {
       // We need to robustly handle various combinations of encoded/unencoded baseUrls and paths,
       // especially for providers like Mailbox.org that include spaces in the user's path.
       // We also want to avoid double-encoding if the path is already encoded.
-      // See: https://github.com/johannesjo/super-productivity/issues/5508
+      // See: https://github.com/super-productivity/super-productivity/issues/5508
       let url: URL;
       try {
         url = new URL(baseUrl);

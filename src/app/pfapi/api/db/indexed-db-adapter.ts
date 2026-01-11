@@ -1,5 +1,4 @@
-import { IDBPDatabase } from 'idb/build';
-import { DBSchema, openDB } from 'idb';
+import { DBSchema, IDBPDatabase, openDB } from 'idb';
 import { DatabaseAdapter } from './database-adapter.model';
 import { MiniObservable } from '../util/mini-observable';
 import { PFLog } from '../../../core/log';
@@ -83,6 +82,7 @@ export class IndexedDbAdapter implements DatabaseAdapter {
   }
 
   async loadAll<A extends Record<string, unknown>>(): Promise<A> {
+    await this._afterReady();
     const data = await this._db.getAll(this._dbMainName as typeof FAKE);
     const keys = await this._db.getAllKeys(this._dbMainName as typeof FAKE);
 

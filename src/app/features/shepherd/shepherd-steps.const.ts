@@ -579,7 +579,7 @@ export const SHEPHERD_STEPS = (
     },
     {
       title: 'Configure Sync',
-      text: 'This covers syncing. If you have any questions you can always ask them <a href="https://github.com/johannesjo/super-productivity/discussions">on the projects GitHub page</a>. ',
+      text: 'This covers syncing. If you have any questions you can always ask them <a href="https://github.com/super-productivity/super-productivity/discussions">on the projects GitHub page</a>. ',
       buttons: [NEXT_BTN],
     },
 
@@ -738,7 +738,7 @@ export const SHEPHERD_STEPS = (
     },
     {
       title: 'Moving around',
-      // eslint-disable-next-line max-len
+
       text: `<p>When a task is focused you can navigate to other tasks by pressing the arrow keys <kbd>↑</kbd> and <kbd>↓</kbd>.</p>`,
       when: {
         show: () => taskService.focusFirstTaskIfVisible(),

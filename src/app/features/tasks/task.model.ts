@@ -67,12 +67,14 @@ export interface IssueFieldsForTask {
   issueAttachmentNr?: number;
   issueTimeTracked?: IssueTaskTimeTracked;
   issuePoints?: number;
+  issueMarker?: string | null;
 }
 
 // Extend the plugin Task type with app-specific fields
 // Omit issue fields from PluginTask to avoid conflict with IssueFieldsForTask
 export interface TaskCopy
-  extends Omit<
+  extends
+    Omit<
       PluginTask,
       | 'issueId'
       | 'issueProviderId'

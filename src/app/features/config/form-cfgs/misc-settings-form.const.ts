@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import {
   ConfigFormSection,
   LimitedFormlyFieldConfig,
@@ -39,6 +38,13 @@ export const MISC_SETTINGS_FORM_CFG: ConfigFormSection<MiscConfig> = {
             },
           },
         ]) as LimitedFormlyFieldConfig<MiscConfig>[]),
+    {
+      key: 'isConfirmBeforeTaskDelete',
+      type: 'checkbox',
+      templateOptions: {
+        label: T.GCF.MISC.IS_CONFIRM_BEFORE_TASK_DELETE,
+      },
+    },
     {
       key: 'isAutMarkParentAsDone',
       type: 'checkbox',
