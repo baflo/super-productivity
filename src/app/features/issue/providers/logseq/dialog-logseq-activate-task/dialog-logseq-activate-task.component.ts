@@ -18,6 +18,7 @@ import { LOGSEQ_TYPE } from '../logseq.const';
 import { TaskService } from '../../../../tasks/task.service';
 import { LogseqBlock } from '../logseq-issue.model';
 import { TaskSharedActions } from '../../../../../root-store/meta/task-shared.actions';
+import { firstValueFrom } from 'rxjs';
 
 type DiscrepancyType =
   | 'LOGSEQ_DONE_SUPERPROD_NOT_DONE'
@@ -126,9 +127,9 @@ export class DialogLogseqActivateTaskComponent {
       case 'LOGSEQ_ACTIVE_SUPERPROD_NOT_ACTIVE':
         // Reset Logseq block to TODO/LATER
         if (task.issueId && task.issueProviderId) {
-          const cfg = await this._issueProviderService
-            .getCfgOnce$(task.issueProviderId, LOGSEQ_TYPE)
-            .toPromise();
+          const cfg = await firstValueFrom(
+            this._issueProviderService.getCfgOnce$(task.issueProviderId, LOGSEQ_TYPE),
+          );
           if (cfg) {
             const markers = this._getMarkers((cfg as LogseqCfg).taskWorkflow);
             await this._logseqCommonService.updateBlockMarker(
@@ -154,9 +155,9 @@ export class DialogLogseqActivateTaskComponent {
       case 'SUPERPROD_ACTIVE_LOGSEQ_NOT_ACTIVE':
         // Set block to NOW/DOING in Logseq
         if (task.issueId && task.issueProviderId) {
-          const cfg = await this._issueProviderService
-            .getCfgOnce$(task.issueProviderId, LOGSEQ_TYPE)
-            .toPromise();
+          const cfg = await firstValueFrom(
+            this._issueProviderService.getCfgOnce$(task.issueProviderId, LOGSEQ_TYPE),
+          );
           if (cfg) {
             const markers = this._getMarkers((cfg as LogseqCfg).taskWorkflow);
             await this._logseqCommonService.updateBlockMarker(
