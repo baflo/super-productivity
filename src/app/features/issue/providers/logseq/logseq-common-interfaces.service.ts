@@ -58,6 +58,10 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
   // Used to skip discrepancy detection during writes
   private _blocksBeingWritten = new Set<string>();
 
+  // Read-locks: Set of blockUuids currently being read
+  // Prevents writes from starting while a read is in progress
+  private _blocksBeingRead = new Set<string>();
+
   // Subject for emitting discrepancies detected during polling
   discrepancies$ = new Subject<DiscrepancyItem>();
 
@@ -199,24 +203,26 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       throw new Error('No issueId');
     }
 
-    // Skip if this block is currently being written to (write-mutex)
-    // This prevents race conditions where polling sees stale data during a write
-    if (this._blocksBeingWritten.has(task.issueId as string)) {
-      LogseqLog.debug('[LOGSEQ POLL] Skipping - block is being written:', task.issueId);
+    const blockUuid = task.issueId as string;
+
+    // Acquire read lock to prevent concurrent writes
+    if (!this._acquireReadLock(blockUuid)) {
+      LogseqLog.debug('[LOGSEQ POLL] Skipping - block is being written:', blockUuid);
       return null;
     }
 
-    const cfg = await firstValueFrom(this._getCfgOnce$(task.issueProviderId));
-    if (!cfg) {
-      throw new Error('No config found for issueProviderId');
-    }
+    try {
+      const cfg = await firstValueFrom(this._getCfgOnce$(task.issueProviderId));
+      if (!cfg) {
+        throw new Error('No config found for issueProviderId');
+      }
 
-    const block = await firstValueFrom(
-      this._logseqApiService.getBlockByUuid$(task.issueId as string, cfg),
-    );
-    if (!block) {
-      return null;
-    }
+      const block = await firstValueFrom(
+        this._logseqApiService.getBlockByUuid$(blockUuid, cfg),
+      );
+      if (!block) {
+        return null;
+      }
 
     const blockTitle = extractFirstLine(block.content);
     // Note: We don't compare titles directly anymore.
@@ -359,7 +365,11 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       };
     }
 
-    return null;
+      return null;
+    } finally {
+      // Always release read lock, even if an error occurred
+      this._releaseReadLock(blockUuid);
+    }
   }
 
   async getFreshDataForIssueTasks(
@@ -623,6 +633,13 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       return;
     }
 
+    // Wait for any active reads to complete before starting write
+    // In practice, this is synchronous since JS is single-threaded,
+    // but it prevents a read from starting between this check and the write
+    while (!this._canAcquireWriteLock(blockUuid)) {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+
     // Set write-mutex to prevent discrepancy detection during write
     this._blocksBeingWritten.add(blockUuid);
 
@@ -651,8 +668,15 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       return;
     }
 
+    const blockUuid = task.issueId as string;
+
+    // Wait for any active reads to complete before starting write
+    while (!this._canAcquireWriteLock(blockUuid)) {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+
     // Set write-mutex to prevent discrepancy detection during write
-    this._blocksBeingWritten.add(task.issueId as string);
+    this._blocksBeingWritten.add(blockUuid);
 
     try {
       const block = await this.getById(task.issueId as string, task.issueProviderId);
@@ -722,11 +746,11 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
         );
 
         // Update :SP: drawer with new sync data
-        await this.updateSpDrawer(task.issueId as string, task.issueProviderId);
+        await this.updateSpDrawer(blockUuid, task.issueProviderId);
       }
     } finally {
       // Clear write-mutex after write completes
-      this._blocksBeingWritten.delete(task.issueId as string);
+      this._blocksBeingWritten.delete(blockUuid);
     }
   }
 
@@ -763,6 +787,34 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       timestamp,
       contentHash,
     });
+  }
+
+  /**
+   * Acquire a read lock for a block to prevent concurrent writes
+   * Returns true if lock was acquired, false if block is being written
+   */
+  private _acquireReadLock(blockUuid: string): boolean {
+    if (this._blocksBeingWritten.has(blockUuid)) {
+      return false; // Can't read while write is in progress
+    }
+    this._blocksBeingRead.add(blockUuid);
+    return true;
+  }
+
+  /**
+   * Release a read lock for a block
+   */
+  private _releaseReadLock(blockUuid: string): void {
+    this._blocksBeingRead.delete(blockUuid);
+  }
+
+  /**
+   * Check if a block can be written (no active reads or writes)
+   */
+  private _canAcquireWriteLock(blockUuid: string): boolean {
+    return (
+      !this._blocksBeingWritten.has(blockUuid) && !this._blocksBeingRead.has(blockUuid)
+    );
   }
 
   private _getCfgOnce$(issueProviderId: string): Observable<LogseqCfg> {

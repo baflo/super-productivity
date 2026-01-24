@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { DestroyRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   filter,
@@ -34,14 +35,15 @@ import { T } from '../../../../t.const';
 
 @Injectable()
 export class LogseqIssueEffects {
-  private _actions$ = inject(Actions);
-  private _taskService = inject(TaskService);
-  private _logseqCommonService = inject(LogseqCommonInterfacesService);
-  private _issueProviderService = inject(IssueProviderService);
-  private _issueService = inject(IssueService);
-  private _matDialog = inject(MatDialog);
-  private _store = inject(Store);
-  private _translateService = inject(TranslateService);
+  private readonly _actions$ = inject(Actions);
+  private readonly _taskService = inject(TaskService);
+  private readonly _logseqCommonService = inject(LogseqCommonInterfacesService);
+  private readonly _issueProviderService = inject(IssueProviderService);
+  private readonly _issueService = inject(IssueService);
+  private readonly _matDialog = inject(MatDialog);
+  private readonly _store = inject(Store);
+  private readonly _translateService = inject(TranslateService);
+  private readonly _destroyRef = inject(DestroyRef);
   private _previousTaskId: string | null = null;
   private _isDialogOpen = false;
 
@@ -475,6 +477,7 @@ export class LogseqIssueEffects {
   showDiscrepancyDialog$ = createEffect(
     () =>
       this._logseqCommonService.discrepancies$.pipe(
+        takeUntilDestroyed(this._destroyRef),
         buffer(this._logseqCommonService.discrepancies$.pipe(debounceTime(500))),
         tap((discrepancies) => {
           LogseqLog.debug(
