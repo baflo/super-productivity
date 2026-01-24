@@ -1,0 +1,117 @@
+<h2 mat-dialog-title>{{ dialogTitle() }}</h2>
+
+<mat-dialog-content>
+  <!-- Multiple Active Tasks in Logseq: Radio Selection -->
+  @if (hasMultipleLogseqActive()) {
+    <div class="active-task-selection">
+      <p>
+        <strong>
+          @if (logseqActiveDiscrepancies().length > 1) {
+            {{ T.F.LOGSEQ.DISCREPANCY.MULTIPLE_ACTIVE_IN_LOGSEQ | translate }}
+          } @else {
+            {{ T.F.LOGSEQ.DISCREPANCY.SINGLE_ACTIVE_IN_LOGSEQ | translate }}
+          }
+        </strong>
+      </p>
+      <p class="helper-text">
+        {{ T.F.LOGSEQ.DISCREPANCY.WHICH_TO_ACTIVATE | translate }}
+      </p>
+
+      <mat-radio-group
+        [(ngModel)]="selectedActiveTaskId"
+        [value]="selectedActiveTaskId()"
+        class="active-task-list">
+        <!-- Option: Activate none -->
+        <mat-radio-button value="__none__" class="task-radio">
+          <span class="task-label-none">
+            {{ T.F.LOGSEQ.DISCREPANCY.ACTIVATE_NONE | translate }}
+          </span>
+        </mat-radio-button>
+
+        <!-- Options: Each active task -->
+        @for (item of logseqActiveDiscrepancies(); track item.task.id) {
+          <mat-radio-button [value]="item.task.id" class="task-radio">
+            <span class="task-label">{{ item.task.title }}</span>
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+  }
+
+  <!-- Single/Few Active Discrepancies (not multiple DOING from Logseq) -->
+  @if (!hasMultipleLogseqActive() && activeDiscrepancies().length > 0) {
+    <div class="discrepancy-section">
+      <p>
+        <strong
+          >{{ T.F.LOGSEQ.DISCREPANCY.ACTIVE_TASKS | translate }} ({{
+            activeDiscrepancies().length
+          }}):</strong
+        >
+      </p>
+
+      @for (item of activeDiscrepancies(); track item.task.id) {
+        <div class="discrepancy-row">
+          <div class="task-info">
+            <strong class="task-title">{{ item.task.title }}</strong>
+            <small class="status-text">{{ getStatusText(item.discrepancyType) }}</small>
+          </div>
+
+          <div class="action-toggle">
+            <mat-radio-group
+              [value]="getDiscrepancyAction(item.task.id)"
+              (change)="setDiscrepancyAction(item.task.id, $any($event.value))"
+              class="toggle-group">
+              <mat-radio-button value="superprod" class="toggle-button">
+                {{ getActionLabel(item.discrepancyType, 'superprod') }}
+              </mat-radio-button>
+              <mat-radio-button value="logseq" class="toggle-button toggle-button-right">
+                {{ getActionLabel(item.discrepancyType, 'logseq') }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- DONE Discrepancies -->
+  @if (doneDiscrepancies().length > 0) {
+    <div class="discrepancy-section">
+      <p><strong>DONE Status ({{ doneDiscrepancies().length }}):</strong></p>
+
+      @for (item of doneDiscrepancies(); track item.task.id) {
+        <div class="discrepancy-row">
+          <div class="task-info">
+            <strong class="task-title">{{ item.task.title }}</strong>
+            <small class="status-text">{{ getStatusText(item.discrepancyType) }}</small>
+          </div>
+
+          <div class="action-toggle">
+            <mat-radio-group
+              [value]="getDiscrepancyAction(item.task.id)"
+              (change)="setDiscrepancyAction(item.task.id, $any($event.value))"
+              class="toggle-group">
+              <mat-radio-button value="superprod" class="toggle-button">
+                {{ getActionLabel(item.discrepancyType, 'superprod') }}
+              </mat-radio-button>
+              <mat-radio-button value="logseq" class="toggle-button toggle-button-right">
+                {{ getActionLabel(item.discrepancyType, 'logseq') }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  @if (doneDiscrepancies().length > 0 && !hasMultipleLogseqActive()) {
+    <button mat-raised-button color="primary" (click)="onSyncAllToLogseq()">
+      Alle in Logseq syncen
+    </button>
+    <button mat-button (click)="onApply()">Anwenden</button>
+  } @else {
+    <button mat-raised-button color="primary" (click)="onApply()">Anwenden</button>
+  }
+</mat-dialog-actions>
