@@ -466,6 +466,12 @@ export class LogseqIssueEffects {
   // Effect: Buffer discrepancies from polling and show them in a single dialog
   // Discrepancies are emitted by LogseqCommonInterfacesService.discrepancies$
   // Uses debounce to collect all discrepancies from a poll cycle before showing dialog
+  //
+  // TODO(refactor): Extract dialog logic into separate component
+  // - Create LogseqDiscrepancyDialogComponent with Angular Forms
+  // - Replace HTML string concatenation with template-driven UI
+  // - Add proper Actions for discrepancy resolution (instead of direct store.dispatch)
+  // - This would improve testability, type-safety, and maintainability
   showDiscrepancyDialog$ = createEffect(
     () =>
       this._logseqCommonService.discrepancies$.pipe(
@@ -491,6 +497,18 @@ export class LogseqIssueEffects {
     { dispatch: false },
   );
 
+  /**
+   * Show discrepancy resolution dialog
+   *
+   * NOTE: This method uses HTML string concatenation and document.querySelector
+   * for DOM manipulation. While functional, this approach has limitations:
+   * - Not easily testable (requires real DOM)
+   * - No type safety for form values
+   * - Not SSR-compatible
+   *
+   * A future refactor should extract this into a proper Angular component
+   * with reactive forms and Actions-based state management.
+   */
   private _showDiscrepancyDialog(discrepancies: DiscrepancyItem[]): void {
     LogseqLog.debug('[LOGSEQ DIALOG] Show dialog with discrepancies:', discrepancies);
 
@@ -754,6 +772,7 @@ export class LogseqIssueEffects {
 
     // Helper function to handle active task selection
     const handleActiveTaskSelection = async (): Promise<void> => {
+      // TODO(refactor): Replace document.querySelector with form value from component
       const selectedRadio = document.querySelector<HTMLInputElement>(
         'input[name="activeTask"]:checked',
       );
@@ -902,10 +921,18 @@ export class LogseqIssueEffects {
     ];
   }
 
+  /**
+   * Escape HTML special characters to prevent XSS
+   * Note: Uses DOM-free string replacement for better performance and SSR compatibility
+   */
   private _escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    if (!text) return '';
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 
   private _handleOfflineError(): typeof EMPTY {
