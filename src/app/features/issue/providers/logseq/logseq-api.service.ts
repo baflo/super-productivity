@@ -1,43 +1,43 @@
 import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LogseqCfg } from './logseq.model';
 import { LogseqBlock } from './logseq-issue.model';
 import { LOGSEQ_MARKER_REGEX } from './logseq.const';
 import { SnackService } from '../../../../core/snack/snack.service';
 import { Observable, from, throwError } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { switchMap, catchError, retry } from 'rxjs/operators';
 import { HANDLED_ERROR_PROP_STR } from '../../../../app.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LogseqApiService {
-  private _snackService = inject(SnackService);
+  private readonly _http = inject(HttpClient);
+  private readonly _snackService = inject(SnackService);
 
   private _sendRequest$<T>(cfg: LogseqCfg, method: string, args: any[]): Observable<T> {
     const url = cfg.apiUrl || 'http://localhost:12315/api';
 
-    return from(
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          'content-type': 'application/json',
-          Authorization: `Bearer ${cfg.authToken}`,
+    if (!cfg.authToken) {
+      return throwError(() => new Error('Logseq: No auth token configured'));
+    }
+
+    return this._http
+      .post<T>(
+        url,
+        { method, args },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${cfg.authToken}`,
+          },
         },
-        body: JSON.stringify({ method, args }),
-      }),
-    ).pipe(
-      switchMap((res) => {
-        if (!res.ok) {
-          return throwError(() => ({
-            status: res.status,
-            statusText: res.statusText,
-          }));
-        }
-        return from(res.json() as Promise<T>);
-      }),
-      catchError((err) => this._handleError(err, method)),
-    );
+      )
+      .pipe(
+        // Retry failed requests up to 2 times with 1 second delay
+        retry({ count: 2, delay: 1000 }),
+        catchError((err: HttpErrorResponse) => this._handleError(err, method)),
+      );
   }
 
   queryBlocks$(cfg: LogseqCfg, query: string): Observable<LogseqBlock[]> {
@@ -175,32 +175,36 @@ export class LogseqApiService {
       .filter((normalizedBlock) => normalizedBlock.uuid !== '');
   }
 
-  private _handleError(error: any, operation: string): Observable<never> {
-    if (error.status === 401 || error.status === 403) {
-      this._snackService.open({
-        type: 'ERROR',
-        msg: 'Logseq: Invalid API token. Please check your settings.',
-      });
-    } else if (error.status === 404) {
-      this._snackService.open({
-        type: 'CUSTOM',
-        msg: `Logseq: ${operation} - Resource not found`,
-      });
-    } else if (
-      !navigator.onLine ||
-      error.message?.includes('ECONNREFUSED') ||
-      error.message?.includes('Failed to fetch')
-    ) {
-      this._snackService.open({
-        type: 'CUSTOM',
-        msg: 'Logseq: Cannot connect. Is Logseq running with HTTP API enabled?',
-      });
-      // Mark as offline for potential queuing
-      return throwError(() => ({
-        [HANDLED_ERROR_PROP_STR]: `Logseq: ${operation} failed`,
-        offline: true,
-        operation,
-      }));
+  private _handleError(error: HttpErrorResponse | Error, operation: string): Observable<never> {
+    // Handle HTTP errors (from HttpClient)
+    if (error instanceof HttpErrorResponse) {
+      if (error.status === 401 || error.status === 403) {
+        this._snackService.open({
+          type: 'ERROR',
+          msg: 'Logseq: Invalid API token. Please check your settings.',
+        });
+      } else if (error.status === 404) {
+        this._snackService.open({
+          type: 'CUSTOM',
+          msg: `Logseq: ${operation} - Resource not found`,
+        });
+      } else if (
+        error.status === 0 ||
+        !navigator.onLine ||
+        error.message?.includes('ECONNREFUSED')
+      ) {
+        // status 0 means network error in HttpClient
+        this._snackService.open({
+          type: 'CUSTOM',
+          msg: 'Logseq: Cannot connect. Is Logseq running with HTTP API enabled?',
+        });
+        // Mark as offline for potential queuing
+        return throwError(() => ({
+          [HANDLED_ERROR_PROP_STR]: `Logseq: ${operation} failed`,
+          offline: true,
+          operation,
+        }));
+      }
     }
 
     return throwError(() => ({

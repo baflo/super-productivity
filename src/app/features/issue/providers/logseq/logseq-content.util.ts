@@ -6,12 +6,18 @@ import { LOGSEQ_MARKER_REGEX } from './logseq.const';
  * #tag -> tag
  */
 export const removeLogseqFormatting = (text: string): string => {
+  if (!text || typeof text !== 'string') {
+    return '';
+  }
   return text
     .replace(/\[\[([^\]]+)\]\]/g, '$1') // Remove page link brackets [[...]]
     .replace(/#(\w+)/g, '$1'); // Remove tag hashes #...
 };
 
 export const extractBlockText = (content: string): string => {
+  if (!content || typeof content !== 'string') {
+    return '';
+  }
   return removeLogseqFormatting(
     content
       .replace(LOGSEQ_MARKER_REGEX, '') // Remove marker
@@ -20,12 +26,18 @@ export const extractBlockText = (content: string): string => {
 };
 
 export const extractFirstLine = (content: string): string => {
+  if (!content || typeof content !== 'string') {
+    return '';
+  }
   const withoutMarker = content.replace(LOGSEQ_MARKER_REGEX, '');
   const firstLine = withoutMarker.split('\n')[0];
   return removeLogseqFormatting(firstLine).trim();
 };
 
 export const extractRestOfContent = (content: string): string => {
+  if (!content || typeof content !== 'string') {
+    return '';
+  }
   const withoutMarker = content.replace(LOGSEQ_MARKER_REGEX, '');
   const lines = withoutMarker.split('\n');
 
@@ -85,6 +97,9 @@ export const extractRestOfContent = (content: string): string => {
 };
 
 export const extractPropertiesFromContent = (content: string): Record<string, string> => {
+  if (!content || typeof content !== 'string') {
+    return {};
+  }
   const withoutMarker = content.replace(LOGSEQ_MARKER_REGEX, '');
   const lines = withoutMarker.split('\n');
   const properties: Record<string, string> = {};

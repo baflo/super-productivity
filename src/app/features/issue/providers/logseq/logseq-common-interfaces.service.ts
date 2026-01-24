@@ -99,7 +99,9 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
       ),
     ).then((result) => {
       if (!result) {
-        throw new Error('Failed to get Logseq block');
+        throw new Error(
+          `Failed to get Logseq block: ${uuid} (provider: ${issueProviderId})`,
+        );
       }
 
       return result;
@@ -382,11 +384,13 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
     // All tasks should have the same issueProviderId
     const issueProviderId = tasks[0].issueProviderId;
     if (!issueProviderId) {
+      LogseqLog.warn('[LOGSEQ POLL] No issueProviderId found for tasks');
       return [];
     }
 
     const cfg = await firstValueFrom(this._getCfgOnce$(issueProviderId));
     if (!cfg) {
+      LogseqLog.warn('[LOGSEQ POLL] No config found for provider:', issueProviderId);
       return [];
     }
 
@@ -470,7 +474,7 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
     // Initialize :SP: drawer if it doesn't exist yet
     if (spDrawerData.contentHash === null) {
       LogseqLog.debug('[LOGSEQ SP DRAWER] Initializing drawer for task:', task.id);
-      await this._updateSpDrawerWithCfg(task.issueId as string, cfg);
+      await this._updateSpDrawerWithCfg(block, cfg);
     }
 
     // Check for content changes
@@ -519,7 +523,7 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
 
     if (isMarkerDiscrepancy || hasContentChange) {
       if (hasContentChange) {
-        await this._updateSpDrawerWithCfg(task.issueId as string, cfg);
+        await this._updateSpDrawerWithCfg(block, cfg);
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -545,16 +549,11 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
   }
 
   /**
-   * Update :SP: drawer with config already available (for batch processing)
+   * Update :SP: drawer with config and block already available (for batch processing)
+   * @param block - Pre-fetched block to update (avoids redundant API call)
+   * @param cfg - Logseq configuration
    */
-  private async _updateSpDrawerWithCfg(blockUuid: string, cfg: LogseqCfg): Promise<void> {
-    const block = await firstValueFrom(
-      this._logseqApiService.getBlockByUuid$(blockUuid, cfg),
-    );
-    if (!block) {
-      return;
-    }
-
+  private async _updateSpDrawerWithCfg(block: LogseqBlock, cfg: LogseqCfg): Promise<void> {
     const contentHash = calculateContentHash(block.content);
     const timestamp = Date.now();
     const updatedContent = updateSpDrawerInContent(block.content, timestamp, contentHash);
@@ -564,7 +563,7 @@ export class LogseqCommonInterfacesService implements IssueServiceInterface {
     );
 
     LogseqLog.debug('[LOGSEQ SP DRAWER] Updated:', {
-      blockUuid,
+      blockUuid: block.uuid,
       timestamp,
       contentHash,
     });
