@@ -76,6 +76,8 @@ import { TaskLog } from '../../../../core/log';
 import { isTouchEventInstance } from '../../../../util/is-touch-event.util';
 import { TaskFocusService } from '../../task-focus.service';
 import { DEFAULT_GLOBAL_CONFIG } from 'src/app/features/config/default-global-config.const';
+import { WorkflowService } from '../../../workflows/workflow.service';
+import { Workflow } from '../../../workflows/workflow.model';
 
 @Component({
   selector: 'task-context-menu-inner',
@@ -114,6 +116,7 @@ export class TaskContextMenuInnerComponent implements AfterViewInit {
   private readonly _translateService = inject(TranslateService);
   private readonly _workContextService = inject(WorkContextService);
   private readonly _taskFocusService = inject(TaskFocusService);
+  private readonly _workflowService = inject(WorkflowService);
 
   protected readonly IS_TOUCH_PRIMARY = IS_TOUCH_PRIMARY;
   protected readonly T = T;
@@ -127,6 +130,9 @@ export class TaskContextMenuInnerComponent implements AfterViewInit {
   readonly isFocusModeEnabled = computed(
     () => this._globalConfigService.cfg()?.appFeatures.isFocusModeEnabled,
   );
+  readonly manualWorkflows = toSignal(this._workflowService.enabledManualWorkflows$, {
+    initialValue: [] as Workflow[],
+  });
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   close = output();
@@ -377,6 +383,11 @@ export class TaskContextMenuInnerComponent implements AfterViewInit {
 
   moveToTop(): void {
     this._taskService.moveToTop(this.task.id, this.task.parentId, false);
+  }
+
+  runWorkflow(workflow: Workflow): void {
+    this._workflowService.triggerManual(workflow.id, this.task.id);
+    this.close.emit();
   }
 
   @throttle(200, { leading: true, trailing: false })

@@ -64,6 +64,8 @@ import {
   PluginUserDataState,
 } from '../plugins/plugin-persistence.model';
 import { menuTreeInitialState } from '../features/menu-tree/store/menu-tree.reducer';
+import { WorkflowState } from '../features/workflows/workflow.model';
+import { initialWorkflowState } from '../features/workflows/store/workflow.reducer';
 
 export const CROSS_MODEL_VERSION = 4.4 as const;
 
@@ -93,6 +95,8 @@ export type PfapiAllModelCfg = {
 
   pluginUserData: ModelCfg<PluginUserDataState | undefined>;
   pluginMetadata: ModelCfg<PluginMetaDataState | undefined>;
+
+  workflow: ModelCfg<WorkflowState>;
 
   archiveYoung: ModelCfg<ArchiveModel>;
   archiveOld: ModelCfg<ArchiveModel>;
@@ -174,6 +178,12 @@ export const PFAPI_MODEL_CFGS: PfapiAllModelCfg = {
   pluginMetadata: {
     defaultData: initialPluginMetaDataState,
     validate: appDataValidators.pluginMetadata,
+  },
+
+  workflow: {
+    defaultData: initialWorkflowState,
+    validate: appDataValidators.workflow,
+    repair: fixEntityStateConsistency,
   },
 
   //-------------------------------

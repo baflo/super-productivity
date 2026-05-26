@@ -325,6 +325,19 @@
       <span class="key-i">{{ kb.taskMoveToProject }}</span>
     </button>
   }
+  @if (manualWorkflows().length > 0) {
+    <button
+      [matMenuTriggerFor]="workflowMenu"
+      mat-menu-item
+      menuTouchFix
+    >
+      <span class="menuItemLeft">
+        <mat-icon>play_circle</mat-icon>
+        {{ T.F.WORKFLOW.LABEL.RUN_WORKFLOW | translate }}
+      </span>
+    </button>
+  }
+
   @if (task.parentId) {
     <button
       (click)="convertToMainTask()"
@@ -371,6 +384,23 @@
           >{{ project.icon || 'list' }}</mat-icon
         >
         {{ project.title }}
+      </button>
+    }
+  </ng-template>
+</mat-menu>
+
+<mat-menu
+  #workflowMenu="matMenu"
+  (closed)="focusRelatedTaskOrNext()"
+>
+  <ng-template matMenuContent>
+    @for (wf of manualWorkflows(); track wf.id) {
+      <button
+        (click)="runWorkflow(wf)"
+        mat-menu-item
+        menuTouchFix
+      >
+        {{ wf.title }}
       </button>
     }
   </ng-template>
