@@ -2,6 +2,7 @@ import { DEFAULT_GLOBAL_CONFIG } from '../features/config/default-global-config.
 import { createEmptyEntity } from './create-empty-entity';
 import { AppDataCompleteNew } from '../pfapi/pfapi-config';
 import { initialTimeTrackingState } from '../features/time-tracking/store/time-tracking.reducer';
+import { initialWorkflowState } from '../features/workflows/store/workflow.reducer';
 
 export const createAppDataCompleteMock = (): AppDataCompleteNew => ({
   project: {
@@ -61,4 +62,5 @@ export const createAppDataCompleteMock = (): AppDataCompleteNew => ({
 
   pluginMetadata: [],
   pluginUserData: [],
+  workflow: initialWorkflowState,
 });

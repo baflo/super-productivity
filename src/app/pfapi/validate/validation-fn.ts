@@ -26,6 +26,7 @@ import {
   PluginMetaDataState,
   PluginUserDataState,
 } from '../../plugins/plugin-persistence.model'; // for more speed
+import { WorkflowState } from '../../features/workflows/workflow.model';
 
 // for more speed
 // type DataToValidate = Omit<AppDataCompleteNew, 'archiveOld' | 'archiveYoung'>;
@@ -56,6 +57,7 @@ const _validateGlobalConfig = createValidate<GlobalConfigState>();
 const _validateTimeTracking = createValidate<TimeTrackingState>();
 const _validatePluginUserData = createValidate<PluginUserDataState>();
 const _validatePluginMetadata = createValidate<PluginMetaDataState>();
+const _validateWorkflow = createValidate<WorkflowState>();
 
 export const validateAllData = <R>(
   d: AppDataCompleteNew | R,
@@ -109,6 +111,7 @@ export const appDataValidators: {
     _wrapValidate(_validatePluginUserData(d)),
   pluginMetadata: <R>(d: R | PluginMetaDataState) =>
     _wrapValidate(_validatePluginMetadata(d)),
+  workflow: <R>(d: R | WorkflowState) => _wrapValidate(_validateWorkflow(d), d, true),
 } as const;
 
 const validateArchiveModel = <R>(d: ArchiveModel | R): ValidationResult<ArchiveModel> => {

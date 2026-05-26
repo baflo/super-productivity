@@ -84,6 +84,11 @@ import { AppStateEffects } from './app-state/app-state.effects';
 import { appStateFeature } from './app-state/app-state.reducer';
 import { SaveToDbEffects } from './shared/save-to-db.effects';
 import { PluginHooksEffects } from '../plugins/plugin-hooks.effects';
+import {
+  WORKFLOW_FEATURE_NAME,
+  workflowReducer,
+} from '../features/workflows/store/workflow.reducer';
+import { WorkflowEffects } from '../features/workflows/store/workflow.effects';
 
 @NgModule({
   declarations: [],
@@ -170,6 +175,9 @@ import { PluginHooksEffects } from '../plugins/plugin-hooks.effects';
     EffectsModule.forFeature([ReminderCountdownEffects]),
     EffectsModule.forFeature([SyncEffects]),
     EffectsModule.forFeature([PluginHooksEffects]),
+
+    StoreModule.forFeature(WORKFLOW_FEATURE_NAME, workflowReducer),
+    EffectsModule.forFeature([WorkflowEffects]),
   ],
 })
 export class FeatureStoresModule {}

@@ -1,0 +1,224 @@
+<h2>
+  {{
+    (isEdit ? T.F.WORKFLOW.LABEL.EDIT_WORKFLOW : T.F.WORKFLOW.LABEL.ADD_WORKFLOW)
+      | translate
+  }}
+</h2>
+
+<div class="workflow-editor-form">
+  <mat-form-field>
+    <mat-label>{{ T.F.WORKFLOW.LABEL.TITLE | translate }}</mat-label>
+    <input
+      matInput
+      [value]="title()"
+      (input)="title.set($any($event.target).value)"
+    />
+  </mat-form-field>
+
+  @if (isEdit) {
+    <mat-slide-toggle
+      [checked]="isEnabled()"
+      (change)="isEnabled.set($event.checked)"
+    >
+      {{ T.F.WORKFLOW.LABEL.ENABLED | translate }}
+    </mat-slide-toggle>
+  }
+
+  <h3>{{ T.F.WORKFLOW.LABEL.TRIGGER | translate }}</h3>
+
+  <mat-form-field>
+    <mat-label>{{ T.F.WORKFLOW.LABEL.TRIGGER | translate }}</mat-label>
+    <mat-select
+      [value]="trigger().type"
+      (selectionChange)="setTriggerType($event.value)"
+    >
+      @for (tt of TRIGGER_TYPES; track tt) {
+        <mat-option [value]="tt">{{ T.F.WORKFLOW.TRIGGER[tt] | translate }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  @if (trigger().type === 'TAG_ADDED' || trigger().type === 'TAG_REMOVED') {
+    <mat-form-field>
+      <mat-label>Tag</mat-label>
+      <mat-select
+        [value]="triggerTagId()"
+        (selectionChange)="setTriggerTagId($event.value)"
+      >
+        @for (tag of allTags(); track tag.id) {
+          <mat-option [value]="tag.id">{{ tag.title }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+
+  @if (trigger().type === 'TASK_MOVED_TO_PROJECT') {
+    <mat-form-field>
+      <mat-label>Project</mat-label>
+      <mat-select
+        [value]="triggerProjectId()"
+        (selectionChange)="setTriggerProjectId($event.value)"
+      >
+        @for (proj of allProjects(); track proj.id) {
+          <mat-option [value]="proj.id">{{ proj.title }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
+
+  @if (trigger().type === 'TASK_CREATED_FROM_PROVIDER') {
+    <mat-form-field>
+      <mat-label>Provider ID</mat-label>
+      <input
+        matInput
+        [value]="triggerProviderId()"
+        (input)="setTriggerProviderId($any($event.target).value)"
+      />
+    </mat-form-field>
+  }
+
+  <h3>{{ T.F.WORKFLOW.LABEL.CONDITION | translate }}</h3>
+
+  <mat-slide-toggle
+    [checked]="isJsonMode()"
+    (change)="isJsonMode.set($event.checked)"
+  >
+    {{ T.F.WORKFLOW.LABEL.CONDITION_JSON | translate }}
+  </mat-slide-toggle>
+
+  @if (isJsonMode()) {
+    <mat-form-field>
+      <mat-label>{{ T.F.WORKFLOW.LABEL.CONDITION | translate }}</mat-label>
+      <textarea
+        matInput
+        rows="6"
+        [value]="conditionJson()"
+        (input)="onConditionJsonChange($any($event.target).value)"
+      ></textarea>
+    </mat-form-field>
+    @if (jsonError()) {
+      <p class="color-warn">{{ jsonError() }}</p>
+    }
+  }
+
+  <h3>{{ T.F.WORKFLOW.LABEL.ACTIONS | translate }}</h3>
+
+  @for (action of actions(); track $index) {
+    <div class="action-row">
+      <span>{{ T.F.WORKFLOW.ACTION[action.type] | translate }}</span>
+
+      @if (action.type === 'ADD_TAG' || action.type === 'REMOVE_TAG') {
+        <mat-form-field>
+          <mat-label>Tag</mat-label>
+          <mat-select
+            [value]="action.tagId"
+            (selectionChange)="updateActionField($index, 'tagId', $event.value)"
+          >
+            @for (tag of allTags(); track tag.id) {
+              <mat-option [value]="tag.id">{{ tag.title }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      @if (action.type === 'MOVE_TO_PROJECT') {
+        <mat-form-field>
+          <mat-label>Project</mat-label>
+          <mat-select
+            [value]="action.projectId"
+            (selectionChange)="updateActionField($index, 'projectId', $event.value)"
+          >
+            @for (proj of allProjects(); track proj.id) {
+              <mat-option [value]="proj.id">{{ proj.title }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      }
+
+      @if (action.type === 'SET_ESTIMATE') {
+        <mat-form-field>
+          <mat-label>Minutes</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            [value]="action.minutes"
+            (input)="updateActionField($index, 'minutes', +$any($event.target).value)"
+          />
+        </mat-form-field>
+      }
+
+      @if (action.type === 'ADD_SUBTASK') {
+        <mat-form-field>
+          <mat-label>Title (use {{ '{{' }}task.title{{'}}'}} for parent title)</mat-label>
+          <input
+            matInput
+            [value]="action.titleTemplate"
+            (input)="
+              updateActionField($index, 'titleTemplate', $any($event.target).value)
+            "
+          />
+        </mat-form-field>
+      }
+
+      @if (action.type === 'SCHEDULE_DAY_OFFSET') {
+        <mat-form-field>
+          <mat-label>Days</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            [value]="action.days"
+            (input)="updateActionField($index, 'days', +$any($event.target).value)"
+          />
+        </mat-form-field>
+      }
+
+      @if (action.type === 'SHOW_NOTIFICATION') {
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <input
+            matInput
+            [value]="action.message"
+            (input)="updateActionField($index, 'message', $any($event.target).value)"
+          />
+        </mat-form-field>
+      }
+
+      <button
+        mat-icon-button
+        (click)="removeAction($index)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  }
+
+  <mat-form-field>
+    <mat-label>{{ T.F.WORKFLOW.LABEL.ADD_ACTION | translate }}</mat-label>
+    <mat-select
+      (selectionChange)="addAction($event.value); $event.source.writeValue(null)"
+    >
+      @for (at of ACTION_TYPES; track at) {
+        <mat-option [value]="at">{{ T.F.WORKFLOW.ACTION[at] | translate }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="dialog-actions">
+  <button
+    mat-button
+    (click)="cancel()"
+  >
+    Cancel
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="save()"
+    [disabled]="!title() || jsonError()"
+  >
+    Save
+  </button>
+</div>
