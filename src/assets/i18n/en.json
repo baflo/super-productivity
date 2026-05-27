@@ -1592,6 +1592,60 @@
         "WEDNESDAY": "Wednesday"
       }
     },
+    "WORKFLOW": {
+      "S": {
+        "ADDED": "Workflow added",
+        "UPDATED": "Workflow updated",
+        "DELETED": "Workflow deleted"
+      },
+      "LABEL": {
+        "TITLE": "Title",
+        "TRIGGER": "Trigger",
+        "CONDITION": "Condition",
+        "ACTIONS": "Actions",
+        "ENABLED": "Enabled",
+        "ADD_WORKFLOW": "Add Workflow",
+        "EDIT_WORKFLOW": "Edit Workflow",
+        "DELETE_WORKFLOW": "Delete Workflow",
+        "RUN_WORKFLOW": "Run Workflow",
+        "NO_WORKFLOWS": "No workflows defined yet",
+        "CONDITION_JSON": "Edit condition as JSON",
+        "ADD_CONDITION": "Add Condition",
+        "ADD_ACTION": "Add Action"
+      },
+      "TRIGGER": {
+        "TASK_CREATED": "Task created",
+        "TASK_CREATED_FROM_PROVIDER": "Task imported from provider",
+        "TAG_ADDED": "Tag added",
+        "TAG_REMOVED": "Tag removed",
+        "TASK_COMPLETED": "Task completed",
+        "TASK_SCHEDULED": "Task scheduled",
+        "TASK_MOVED_TO_PROJECT": "Task moved to project",
+        "MANUAL": "Manual (context menu)"
+      },
+      "CONDITION": {
+        "HAS_TAG": "Has tag",
+        "IN_PROJECT": "Is in project",
+        "FROM_PROVIDER": "From provider",
+        "TITLE_MATCHES": "Title matches",
+        "NOT": "NOT",
+        "AND": "AND",
+        "OR": "OR"
+      },
+      "ACTION": {
+        "ADD_TAG": "Add tag",
+        "REMOVE_TAG": "Remove tag",
+        "SCHEDULE_TODAY": "Schedule for today",
+        "SCHEDULE_TOMORROW": "Schedule for tomorrow",
+        "SCHEDULE_DAY_OFFSET": "Schedule in N days",
+        "UNSCHEDULE": "Remove schedule",
+        "MOVE_TO_PROJECT": "Move to project",
+        "SET_ESTIMATE": "Set time estimate",
+        "ADD_SUBTASK": "Add subtask",
+        "MARK_DONE": "Mark as done",
+        "SHOW_NOTIFICATION": "Show notification"
+      }
+    },
     "TASK_VIEW": {
       "CUSTOMIZER": {
         "ENTER_PROJECT": "Filter Projects",
