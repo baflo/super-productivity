@@ -1,1 +1,13 @@
-ewogICJpZCI6ICJqaXJhLWVuaGFuY2VtZW50cyIsCiAgIm5hbWUiOiAiSmlyYSBFbmhhbmNlbWVudHMiLAogICJ2ZXJzaW9uIjogIjEuMC4wIiwKICAibWFuaWZlc3RWZXJzaW9uIjogMSwKICAibWluU3VwVmVyc2lvbiI6ICIxNi4wLjAiLAogICJkZXNjcmlwdGlvbiI6ICJBIHNtYWxsIHdvcmtmbG93IGVuZ2luZSBmb3IgSmlyYSBpbXBvcnRzLiBTaGlwcyB3aXRoIHJ1bGVzIHRvIGtlZXAgaW1wb3J0cyBvdXQgb2YgVG9kYXkgYW5kIHRvIG9mZmVyIGEgcHJvamVjdCBwaWNrZXIgb24gbWFudWFsIGltcG9ydDsgZnVsbHkgZWRpdGFibGUgdmlhIGNvbmZpZy4iLAogICJob29rcyI6IFsidGFza0NyZWF0ZWQiXSwKICAicGVybWlzc2lvbnMiOiBbXSwKICAiaUZyYW1lIjogZmFsc2UsCiAgImlzU2tpcE1lbnVFbnRyeSI6IHRydWUsCiAgImpzb25TY2hlbWFDZmciOiAiY29uZmlnLXNjaGVtYS5qc29uIgp9Cg==
+{
+  "id": "jira-enhancements",
+  "name": "Jira Enhancements",
+  "version": "1.0.0",
+  "manifestVersion": 1,
+  "minSupVersion": "16.0.0",
+  "description": "A small workflow engine for Jira imports. Ships with rules to keep imports out of Today and to offer a project picker on manual import; fully editable via config.",
+  "hooks": ["taskCreated"],
+  "permissions": [],
+  "iFrame": false,
+  "isSkipMenuEntry": true,
+  "jsonSchemaCfg": "config-schema.json"
+}

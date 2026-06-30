@@ -1,1 +1,271 @@
-Ly8gSmlyYSBFbmhhbmNlbWVudHMg4oCTIGEgc21hbGwsIHNlbGYtY29udGFpbmVkIHdvcmtmbG93IGVuZ2luZS4KLy8KLy8gQSAicnVsZSIgaXM6IHRyaWdnZXIg4oaSIGNvbmRpdGlvbnMgKGFsbCBtdXN0IG1hdGNoKSDihpIgYWN0aW9ucyAocnVuIGluIG9yZGVyKS4KLy8gVGhlIHRocmVlIHJlZ2lzdHJpZXMgYmVsb3cgKFRSSUdHRVJTIC8gQ09ORElUSU9OUyAvIEFDVElPTlMpIG1ha2UgdGhlIGVuZ2luZQovLyBleHRlbnNpYmxlOiB0byBhZGQgYSBjYXBhYmlsaXR5LCBkcm9wIGEgbmV3IGVudHJ5IGludG8gdGhlIG1hdGNoaW5nIHJlZ2lzdHJ5Ci8vIGFuZCByZWZlcmVuY2UgaXRzIGlkIGZyb20gYSBydWxlIChhbmQgYWRkIHRoZSBpZCB0byBjb25maWctc2NoZW1hLmpzb24gc28gaXQKLy8gc2hvd3MgdXAgaW4gdGhlIHNldHRpbmdzIGZvcm0pLgovLwovLyBTaGlwcyB3aXRoIHR3byBkZWZhdWx0IHJ1bGVzIChzZWUgREVGQVVMVF9SVUxFUykgc28gaXQgd29ya3Mgb3V0IG9mIHRoZSBib3g6Ci8vICAgMS4gRG9uJ3QgYXV0by1zY2hlZHVsZSBpbXBvcnRlZCBKaXJhIHRhc2tzIHRvICJUb2RheSIuCi8vICAgMi4gT24gbWFudWFsIEppcmEgaW1wb3J0IGluc2lkZSBhIHByb2plY3Qgdmlldywgb2ZmZXIgYSBwcm9qZWN0LXBpY2tlciBkaWFsb2cuCi8vIEJvdGggYXJlIGZ1bGx5IGVkaXRhYmxlIHZpYSB0aGUgcGx1Z2luIGNvbmZpZyAoU2V0dGluZ3Mg4oaSIFBsdWdpbnMg4oaSIENvbmZpZ3VyZSkuCgovLyDilIDilIAgaGVscGVycyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKCmZ1bmN0aW9uIGVzY2FwZUh0bWwoc3RyKSB7CiAgcmV0dXJuIFN0cmluZyhzdHIpCiAgICAucmVwbGFjZSgvJi9nLCAnJmFtcDsnKQogICAgLnJlcGxhY2UoLzwvZywgJyZsdDsnKQogICAgLnJlcGxhY2UoLz4vZywgJyZndDsnKQogICAgLnJlcGxhY2UoLyIvZywgJyZxdW90OycpCiAgICAucmVwbGFjZSgvJy9nLCAnJiMzOTsnKTsKfQoKZnVuY3Rpb24gdG9kYXlTdHIoKSB7CiAgY29uc3QgZCA9IG5ldyBEYXRlKCk7CiAgY29uc3QgeSA9IGQuZ2V0RnVsbFllYXIoKTsKICBjb25zdCBtID0gU3RyaW5nKGQuZ2V0TW9udGgoKSArIDEpLnBhZFN0YXJ0KDIsICcwJyk7CiAgY29uc3QgZGF5ID0gU3RyaW5nKGQuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCAnMCcpOwogIHJldHVybiBgJHt5fS0ke219LSR7ZGF5fWA7Cn0KCi8vIExhemlseS1sb2FkZWQsIHBlci1ldmVudCBjYWNoZSBmb3IgcHJvamVjdHMvdGFncyBzbyBhIHJ1bGUgYmF0Y2ggb25seSBmZXRjaGVzIG9uY2UuCmZ1bmN0aW9uIGNyZWF0ZURhdGFDYWNoZSgpIHsKICBsZXQgcHJvamVjdHMgPSBudWxsOwogIGxldCB0YWdzID0gbnVsbDsKICByZXR1cm4gewogICAgYXN5bmMgZ2V0UHJvamVjdHMoKSB7CiAgICAgIGlmICghcHJvamVjdHMpIHByb2plY3RzID0gYXdhaXQgUGx1Z2luQVBJLmdldEFsbFByb2plY3RzKCk7CiAgICAgIHJldHVybiBwcm9qZWN0czsKICAgIH0sCiAgICBhc3luYyBnZXRUYWdzKCkgewogICAgICBpZiAoIXRhZ3MpIHRhZ3MgPSBhd2FpdCBQbHVnaW5BUEkuZ2V0QWxsVGFncygpOwogICAgICByZXR1cm4gdGFnczsKICAgIH0sCiAgfTsKfQoKLy8g4pSA4pSAIHRyaWdnZXIgcmVnaXN0cnkg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACi8vIGBob29rYCBpcyB0aGUgU3VwZXIgUHJvZHVjdGl2aXR5IHBsdWdpbiBob29rIHRvIHN1YnNjcmliZSB0byAoZGVjbGFyZSBpdCBpbgovLyBtYW5pZmVzdC5qc29uIHRvbykuIGBtYXRjaGVzYCBsZXRzIG9uZSBob29rIGJhY2sgc2V2ZXJhbCBsb2dpY2FsIHRyaWdnZXJzLgoKY29uc3QgVFJJR0dFUlMgPSB7CiAgdGFza0NyZWF0ZWQ6IHsKICAgIG5hbWU6ICdUYXNrIGNyZWF0ZWQnLAogICAgaG9vazogJ3Rhc2tDcmVhdGVkJywKICAgIG1hdGNoZXM6IChldmVudCkgPT4gZXZlbnQudHlwZSA9PT0gJ3Rhc2tDcmVhdGVkJywKICB9LAp9OwoKLy8g4pSA4pSAIGNvbmRpdGlvbiByZWdpc3RyeSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKLy8gY2hlY2soY3R4LCB0YXNrLCB2YWx1ZSkgPT4gYm9vbGVhbiB8IFByb21pc2U8Ym9vbGVhbj4KCmNvbnN0IENPTkRJVElPTlMgPSB7CiAgaXNGcm9tUHJvdmlkZXI6IHsKICAgIG5hbWU6ICdJbXBvcnRlZCBmcm9tIGlzc3VlIHByb3ZpZGVyJywKICAgIC8vIHZhbHVlID0gcHJvdmlkZXIga2V5IChlLmcuICJKSVJBIiwgIkdJVEhVQiIpOyBlbXB0eSA9IGFueSBwcm92aWRlcgogICAgY2hlY2s6IChjdHgsIHRhc2ssIHZhbHVlKSA9PiAodmFsdWUgPyB0YXNrLmlzc3VlVHlwZSA9PT0gdmFsdWUgOiAhIXRhc2suaXNzdWVUeXBlKSwKICB9LAogIGhhc1Byb2plY3Q6IHsKICAgIG5hbWU6ICdJcyBpbiBhIHByb2plY3QnLAogICAgLy8gdmFsdWUgPSBvcHRpb25hbCBwcm9qZWN0IHRpdGxlOyBlbXB0eSA9IGFueSBwcm9qZWN0IChpLmUuIG5vdCB0aGUgaW5ib3gpCiAgICBjaGVjazogYXN5bmMgKGN0eCwgdGFzaywgdmFsdWUpID0+IHsKICAgICAgaWYgKCF0YXNrLnByb2plY3RJZCkgcmV0dXJuIGZhbHNlOwogICAgICBpZiAoIXZhbHVlKSByZXR1cm4gdHJ1ZTsKICAgICAgY29uc3QgcHJvamVjdHMgPSBhd2FpdCBjdHguY2FjaGUuZ2V0UHJvamVjdHMoKTsKICAgICAgY29uc3QgcHJvamVjdCA9IHByb2plY3RzLmZpbmQoKHApID0+IHAuaWQgPT09IHRhc2sucHJvamVjdElkKTsKICAgICAgcmV0dXJuICEhcHJvamVjdCAmJiBwcm9qZWN0LnRpdGxlID09PSB2YWx1ZTsKICAgIH0sCiAgfSwKICB0aXRsZUNvbnRhaW5zOiB7CiAgICBuYW1lOiAnVGl0bGUgY29udGFpbnMnLAogICAgY2hlY2s6IChjdHgsIHRhc2ssIHZhbHVlKSA9PgogICAgICAhIXZhbHVlICYmIHRhc2sudGl0bGUudG9Mb3dlckNhc2UoKS5pbmNsdWRlcyh2YWx1ZS50b0xvd2VyQ2FzZSgpKSwKICB9LAogIGhhc1RhZzogewogICAgbmFtZTogJ0hhcyB0YWcnLAogICAgLy8gdmFsdWUgPSB0YWcgdGl0bGUKICAgIGNoZWNrOiBhc3luYyAoY3R4LCB0YXNrLCB2YWx1ZSkgPT4gewogICAgICBpZiAoIXZhbHVlIHx8ICF0YXNrLnRhZ0lkcyB8fCAhdGFzay50YWdJZHMubGVuZ3RoKSByZXR1cm4gZmFsc2U7CiAgICAgIGNvbnN0IHRhZ3MgPSBhd2FpdCBjdHguY2FjaGUuZ2V0VGFncygpOwogICAgICBjb25zdCB0YWcgPSB0YWdzLmZpbmQoKHQpID0+IHQudGl0bGUgPT09IHZhbHVlKTsKICAgICAgcmV0dXJuICEhdGFnICYmIHRhc2sudGFnSWRzLmluY2x1ZGVzKHRhZy5pZCk7CiAgICB9LAogIH0sCn07CgovLyDilIDilIAgYWN0aW9uIHJlZ2lzdHJ5IOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgAovLyBleGVjdXRlKGN0eCwgdGFzaywgdmFsdWUpID0+IFByb21pc2U8dm9pZD4KCmNvbnN0IEFDVElPTlMgPSB7CiAgdW5zY2hlZHVsZTogewogICAgbmFtZTogJ1JlbW92ZSBmcm9tIFRvZGF5IC8gdW5zY2hlZHVsZScsCiAgICBleGVjdXRlOiBhc3luYyAoY3R4LCB0YXNrKSA9PiB7CiAgICAgIGF3YWl0IFBsdWdpbkFQSS51cGRhdGVUYXNrKHRhc2suaWQsIHsgZHVlRGF5OiBudWxsLCBkdWVXaXRoVGltZTogbnVsbCB9KTsKICAgICAgUGx1Z2luQVBJLmxvZy5pbmZvKGBbSmlyYUVuaF0gVW5zY2hlZHVsZWQgdGFzayAiJHt0YXNrLnRpdGxlfSJgKTsKICAgIH0sCiAgfSwKICBzY2hlZHVsZVRvZGF5OiB7CiAgICBuYW1lOiAnU2NoZWR1bGUgZm9yIFRvZGF5JywKICAgIGV4ZWN1dGU6IGFzeW5jIChjdHgsIHRhc2spID0+IHsKICAgICAgYXdhaXQgUGx1Z2luQVBJLnVwZGF0ZVRhc2sodGFzay5pZCwgeyBkdWVEYXk6IHRvZGF5U3RyKCkgfSk7CiAgICAgIFBsdWdpbkFQSS5sb2cuaW5mbyhgW0ppcmFFbmhdIFNjaGVkdWxlZCB0YXNrICIke3Rhc2sudGl0bGV9IiBmb3IgdG9kYXlgKTsKICAgIH0sCiAgfSwKICBhZGRUYWc6IHsKICAgIG5hbWU6ICdBZGQgdGFnJywKICAgIC8vIHZhbHVlID0gdGFnIHRpdGxlIChtdXN0IGFscmVhZHkgZXhpc3QpCiAgICBleGVjdXRlOiBhc3luYyAoY3R4LCB0YXNrLCB2YWx1ZSkgPT4gewogICAgICBpZiAoIXZhbHVlKSByZXR1cm47CiAgICAgIGNvbnN0IHRhZ3MgPSBhd2FpdCBjdHguY2FjaGUuZ2V0VGFncygpOwogICAgICBjb25zdCB0YWcgPSB0YWdzLmZpbmQoKHQpID0+IHQudGl0bGUgPT09IHZhbHVlKTsKICAgICAgaWYgKCF0YWcpIHsKICAgICAgICBQbHVnaW5BUEkubG9nLndhcm4oYFtKaXJhRW5oXSBUYWcgIiR7dmFsdWV9IiBub3QgZm91bmRgKTsKICAgICAgICByZXR1cm47CiAgICAgIH0KICAgICAgaWYgKHRhc2sudGFnSWRzICYmIHRhc2sudGFnSWRzLmluY2x1ZGVzKHRhZy5pZCkpIHJldHVybjsKICAgICAgYXdhaXQgUGx1Z2luQVBJLnVwZGF0ZVRhc2sodGFzay5pZCwgewogICAgICAgIHRhZ0lkczogWy4uLih0YXNrLnRhZ0lkcyB8fCBbXSksIHRhZy5pZF0sCiAgICAgIH0pOwogICAgfSwKICB9LAogIHNob3dTbmFjazogewogICAgbmFtZTogJ1Nob3cgc25hY2sgbWVzc2FnZScsCiAgICBleGVjdXRlOiAoY3R4LCB0YXNrLCB2YWx1ZSkgPT4gewogICAgICBpZiAodmFsdWUpIFBsdWdpbkFQSS5zaG93U25hY2soeyBtc2c6IHZhbHVlLCB0eXBlOiAnU1VDQ0VTUycgfSk7CiAgICB9LAogIH0sCiAgbW92ZVRvUHJvamVjdFZpYURpYWxvZzogewogICAgbmFtZTogJ09mZmVyIHByb2plY3QgcGlja2VyIGRpYWxvZycsCiAgICBleGVjdXRlOiBhc3luYyAoY3R4LCB0YXNrKSA9PiB7CiAgICAgIGNvbnN0IHByb2plY3RzID0gYXdhaXQgY3R4LmNhY2hlLmdldFByb2plY3RzKCk7CiAgICAgIGNvbnN0IGFjdGl2ZVByb2plY3RzID0gcHJvamVjdHMuZmlsdGVyKChwKSA9PiAhcC5pc0FyY2hpdmVkKTsKICAgICAgY29uc3QgY3VycmVudFByb2plY3QgPSBhY3RpdmVQcm9qZWN0cy5maW5kKChwKSA9PiBwLmlkID09PSB0YXNrLnByb2plY3RJZCk7CiAgICAgIGlmICghY3VycmVudFByb2plY3QpIHJldHVybjsKCiAgICAgIGNvbnN0IG90aGVyUHJvamVjdHMgPSBhY3RpdmVQcm9qZWN0cy5maWx0ZXIoKHApID0+IHAuaWQgIT09IHRhc2sucHJvamVjdElkKTsKICAgICAgY29uc3Qgb3B0aW9uc0h0bWwgPSBvdGhlclByb2plY3RzCiAgICAgICAgLm1hcCgocCkgPT4gYDxvcHRpb24gdmFsdWU9IiR7ZXNjYXBlSHRtbChwLmlkKX0iPiR7ZXNjYXBlSHRtbChwLnRpdGxlKX08L29wdGlvbj5gKQogICAgICAgIC5qb2luKCcnKTsKCiAgICAgIGF3YWl0IFBsdWdpbkFQSS5vcGVuRGlhbG9nKHsKICAgICAgICBodG1sQ29udGVudDogYAogICAgICAgICAgPHA+CiAgICAgICAgICAgIEppcmEgdGFzayA8c3Ryb25nPiZsZHF1bzske2VzY2FwZUh0bWwodGFzay50aXRsZSl9JnJkcXVvOzwvc3Ryb25nPgogICAgICAgICAgICB3YXMgYWRkZWQgdG8gcHJvamVjdCA8c3Ryb25nPiR7ZXNjYXBlSHRtbChjdXJyZW50UHJvamVjdC50aXRsZSl9PC9zdHJvbmc+LgogICAgICAgICAgPC9wPgogICAgICAgICAgJHsKICAgICAgICAgICAgb3RoZXJQcm9qZWN0cy5sZW5ndGggPiAwCiAgICAgICAgICAgICAgPyBgPHAgc3R5bGU9Im1hcmdpbi10b3A6MTJweCI+TW92ZSB0byBhIGRpZmZlcmVudCBwcm9qZWN0PzwvcD4KICAgICAgICAgICAgICAgICA8c2VsZWN0IGlkPSJqaXJhLWVuaC1wcm9qZWN0LXNlbGVjdCIKICAgICAgICAgICAgICAgICAgICAgICAgIHN0eWxlPSJ3aWR0aDoxMDAlO3BhZGRpbmc6OHB4O21hcmdpbi10b3A6NHB4O2JvcmRlcjoxcHggc29saWQgI2NjYztib3JkZXItcmFkaXVzOjRweCI+CiAgICAgICAgICAgICAgICAgICA8b3B0aW9uIHZhbHVlPSIiPuKAlCBLZWVwIGluICR7ZXNjYXBlSHRtbChjdXJyZW50UHJvamVjdC50aXRsZSl9IOKAlDwvb3B0aW9uPgogICAgICAgICAgICAgICAgICAgJHtvcHRpb25zSHRtbH0KICAgICAgICAgICAgICAgICA8L3NlbGVjdD5gCiAgICAgICAgICAgICAgOiAnPHAgc3R5bGU9ImNvbG9yOmdyYXk7bWFyZ2luLXRvcDo4cHgiPjxlbT5ObyBvdGhlciBwcm9qZWN0cyBhdmFpbGFibGUuPC9lbT48L3A+JwogICAgICAgICAgfQogICAgICAgIGAsCiAgICAgICAgYnV0dG9uczogWwogICAgICAgICAgewogICAgICAgICAgICBsYWJlbDogJ09LJywKICAgICAgICAgICAgY29sb3I6ICdwcmltYXJ5JywKICAgICAgICAgICAgb25DbGljazogYXN5bmMgKCkgPT4gewogICAgICAgICAgICAgIGNvbnN0IHNlbGVjdCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdqaXJhLWVuaC1wcm9qZWN0LXNlbGVjdCcpOwogICAgICAgICAgICAgIGNvbnN0IHBpY2tlZFByb2plY3RJZCA9IHNlbGVjdCA/IHNlbGVjdC52YWx1ZSA6IG51bGw7CiAgICAgICAgICAgICAgaWYgKHBpY2tlZFByb2plY3RJZCkgewogICAgICAgICAgICAgICAgYXdhaXQgUGx1Z2luQVBJLm1vdmVUYXNrVG9Qcm9qZWN0KHRhc2suaWQsIHBpY2tlZFByb2plY3RJZCk7CiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9LAogICAgICAgICAgfSwKICAgICAgICBdLAogICAgICB9KTsKICAgIH0sCiAgfSwKfTsKCi8vIOKUgOKUgCBkZWZhdWx0IHJ1bGVzICh1c2VkIHdoZW4gbm8gY3VzdG9tIHJ1bGVzIGFyZSBjb25maWd1cmVkKSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKCmNvbnN0IERFRkFVTFRfUlVMRVMgPSBbCiAgewogICAgbmFtZTogIkRvbid0IHNjaGVkdWxlIEppcmEgaW1wb3J0cyB0byBUb2RheSIsCiAgICBlbmFibGVkOiB0cnVlLAogICAgdHJpZ2dlcjogJ3Rhc2tDcmVhdGVkJywKICAgIGNvbmRpdGlvbnM6IFt7IHR5cGU6ICdpc0Zyb21Qcm92aWRlcicsIHZhbHVlOiAnSklSQScgfV0sCiAgICBhY3Rpb25zOiBbeyB0eXBlOiAndW5zY2hlZHVsZScgfV0sCiAgfSwKICB7CiAgICBuYW1lOiAnUHJvamVjdCBwaWNrZXIgb24gSmlyYSBpbXBvcnQgaW4gYSBwcm9qZWN0JywKICAgIGVuYWJsZWQ6IHRydWUsCiAgICB0cmlnZ2VyOiAndGFza0NyZWF0ZWQnLAogICAgY29uZGl0aW9uczogW3sgdHlwZTogJ2lzRnJvbVByb3ZpZGVyJywgdmFsdWU6ICdKSVJBJyB9LCB7IHR5cGU6ICdoYXNQcm9qZWN0JyB9XSwKICAgIGFjdGlvbnM6IFt7IHR5cGU6ICdtb3ZlVG9Qcm9qZWN0VmlhRGlhbG9nJyB9XSwKICB9LApdOwoKLy8g4pSA4pSAIGVuZ2luZSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKCmFzeW5jIGZ1bmN0aW9uIHJ1blJ1bGUocnVsZSwgZXZlbnQpIHsKICBjb25zdCBjYWNoZSA9IGNyZWF0ZURhdGFDYWNoZSgpOwogIGNvbnN0IGN0eCA9IHsgY2FjaGUgfTsKICBjb25zdCB0YXNrID0gZXZlbnQudGFzazsKICBpZiAoIXRhc2spIHJldHVybjsKCiAgLy8gQWxsIGNvbmRpdGlvbnMgbXVzdCBwYXNzIChsb2dpY2FsIEFORCkuCiAgZm9yIChjb25zdCBjb25kIG9mIHJ1bGUuY29uZGl0aW9ucyB8fCBbXSkgewogICAgY29uc3QgZGVmID0gQ09ORElUSU9OU1tjb25kLnR5cGVdOwogICAgaWYgKCFkZWYpIHsKICAgICAgUGx1Z2luQVBJLmxvZy53YXJuKGBbSmlyYUVuaF0gVW5rbm93biBjb25kaXRpb24gIiR7Y29uZC50eXBlfSJgKTsKICAgICAgcmV0dXJuOwogICAgfQogICAgY29uc3Qgb2sgPSBhd2FpdCBkZWYuY2hlY2soY3R4LCB0YXNrLCBjb25kLnZhbHVlKTsKICAgIGlmICghb2spIHJldHVybjsKICB9CgogIC8vIFJ1biBhY3Rpb25zIGluIGRlY2xhcmVkIG9yZGVyLgogIGZvciAoY29uc3QgYWN0IG9mIHJ1bGUuYWN0aW9ucyB8fCBbXSkgewogICAgY29uc3QgZGVmID0gQUNUSU9OU1thY3QudHlwZV07CiAgICBpZiAoIWRlZikgewogICAgICBQbHVnaW5BUEkubG9nLndhcm4oYFtKaXJhRW5oXSBVbmtub3duIGFjdGlvbiAiJHthY3QudHlwZX0iYCk7CiAgICAgIGNvbnRpbnVlOwogICAgfQogICAgdHJ5IHsKICAgICAgYXdhaXQgZGVmLmV4ZWN1dGUoY3R4LCB0YXNrLCBhY3QudmFsdWUpOwogICAgfSBjYXRjaCAoZSkgewogICAgICBQbHVnaW5BUEkubG9nLmVycm9yKGBbSmlyYUVuaF0gQWN0aW9uICIke2FjdC50eXBlfSIgZmFpbGVkOiAke2V9YCk7CiAgICB9CiAgfQp9CgooYXN5bmMgKCkgPT4gewogIGNvbnN0IGNmZyA9IChhd2FpdCBQbHVnaW5BUEkuZ2V0Q29uZmlnKCkpIHx8IHt9OwogIGNvbnN0IHJ1bGVzID0gQXJyYXkuaXNBcnJheShjZmcucnVsZXMpICYmIGNmZy5ydWxlcy5sZW5ndGggPyBjZmcucnVsZXMgOiBERUZBVUxUX1JVTEVTOwoKICBjb25zdCBhY3RpdmVSdWxlcyA9IHJ1bGVzLmZpbHRlcigocikgPT4gciAmJiByLmVuYWJsZWQgIT09IGZhbHNlKTsKICBpZiAoIWFjdGl2ZVJ1bGVzLmxlbmd0aCkgcmV0dXJuOwoKICAvLyBSZWdpc3RlciBvbmUgaG9vayBoYW5kbGVyIHBlciBkaXN0aW5jdCBob29rIHVzZWQgYnkgdGhlIGFjdGl2ZSBydWxlcy4KICBjb25zdCBob29rcyA9IG5ldyBTZXQoKTsKICBmb3IgKGNvbnN0IHJ1bGUgb2YgYWN0aXZlUnVsZXMpIHsKICAgIGNvbnN0IHRyaWdnZXIgPSBUUklHR0VSU1tydWxlLnRyaWdnZXJdOwogICAgaWYgKHRyaWdnZXIpIGhvb2tzLmFkZCh0cmlnZ2VyLmhvb2spOwogICAgZWxzZSBQbHVnaW5BUEkubG9nLndhcm4oYFtKaXJhRW5oXSBVbmtub3duIHRyaWdnZXIgIiR7cnVsZS50cmlnZ2VyfSJgKTsKICB9CgogIGZvciAoY29uc3QgaG9vayBvZiBob29rcykgewogICAgUGx1Z2luQVBJLnJlZ2lzdGVySG9vayhob29rLCBhc3luYyAoZXZlbnQpID0+IHsKICAgICAgLy8gTm9ybWFsaXplOiBob29rIHBheWxvYWRzIHBhc3MgeyB0YXNrSWQsIHRhc2sgfSwgZW5naW5lIGV4cGVjdHMgZXZlbnQudHlwZS4KICAgICAgY29uc3Qgbm9ybWFsaXplZCA9IHsgdHlwZTogaG9vaywgdGFzazogZXZlbnQudGFzaywgdGFza0lkOiBldmVudC50YXNrSWQgfTsKICAgICAgZm9yIChjb25zdCBydWxlIG9mIGFjdGl2ZVJ1bGVzKSB7CiAgICAgICAgY29uc3QgdHJpZ2dlciA9IFRSSUdHRVJTW3J1bGUudHJpZ2dlcl07CiAgICAgICAgaWYgKHRyaWdnZXIgJiYgdHJpZ2dlci5tYXRjaGVzKG5vcm1hbGl6ZWQpKSB7CiAgICAgICAgICBhd2FpdCBydW5SdWxlKHJ1bGUsIG5vcm1hbGl6ZWQpOwogICAgICAgIH0KICAgICAgfQogICAgfSk7CiAgfQoKICBQbHVnaW5BUEkubG9nLmluZm8oCiAgICBgW0ppcmFFbmhdIFdvcmtmbG93IGVuZ2luZSBzdGFydGVkIHdpdGggJHthY3RpdmVSdWxlcy5sZW5ndGh9IHJ1bGUocylgLAogICk7Cn0pKCk7Cg==
+// Jira Enhancements – a small, self-contained workflow engine.
+//
+// A "rule" is: trigger → conditions (all must match) → actions (run in order).
+// The three registries below (TRIGGERS / CONDITIONS / ACTIONS) make the engine
+// extensible: to add a capability, drop a new entry into the matching registry
+// and reference its id from a rule (and add the id to config-schema.json so it
+// shows up in the settings form).
+//
+// Ships with two default rules (see DEFAULT_RULES) so it works out of the box:
+//   1. Don't auto-schedule imported Jira tasks to "Today".
+//   2. On manual Jira import inside a project view, offer a project-picker dialog.
+// Both are fully editable via the plugin config (Settings → Plugins → Configure).
+
+// ── helpers ─────────────────────────────────────────────────────────────────
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function todayStr() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+// Lazily-loaded, per-event cache for projects/tags so a rule batch only fetches once.
+function createDataCache() {
+  let projects = null;
+  let tags = null;
+  return {
+    async getProjects() {
+      if (!projects) projects = await PluginAPI.getAllProjects();
+      return projects;
+    },
+    async getTags() {
+      if (!tags) tags = await PluginAPI.getAllTags();
+      return tags;
+    },
+  };
+}
+
+// ── trigger registry ──────────────────────────────────────────────────────────
+// `hook` is the Super Productivity plugin hook to subscribe to (declare it in
+// manifest.json too). `matches` lets one hook back several logical triggers.
+
+const TRIGGERS = {
+  taskCreated: {
+    name: 'Task created',
+    hook: 'taskCreated',
+    matches: (event) => event.type === 'taskCreated',
+  },
+};
+
+// ── condition registry ─────────────────────────────────────────────────────────
+// check(ctx, task, value) => boolean | Promise<boolean>
+
+const CONDITIONS = {
+  isFromProvider: {
+    name: 'Imported from issue provider',
+    // value = provider key (e.g. "JIRA", "GITHUB"); empty = any provider
+    check: (ctx, task, value) => (value ? task.issueType === value : !!task.issueType),
+  },
+  hasProject: {
+    name: 'Is in a project',
+    // value = optional project title; empty = any project (i.e. not the inbox)
+    check: async (ctx, task, value) => {
+      if (!task.projectId) return false;
+      if (!value) return true;
+      const projects = await ctx.cache.getProjects();
+      const project = projects.find((p) => p.id === task.projectId);
+      return !!project && project.title === value;
+    },
+  },
+  titleContains: {
+    name: 'Title contains',
+    check: (ctx, task, value) =>
+      !!value && task.title.toLowerCase().includes(value.toLowerCase()),
+  },
+  hasTag: {
+    name: 'Has tag',
+    // value = tag title
+    check: async (ctx, task, value) => {
+      if (!value || !task.tagIds || !task.tagIds.length) return false;
+      const tags = await ctx.cache.getTags();
+      const tag = tags.find((t) => t.title === value);
+      return !!tag && task.tagIds.includes(tag.id);
+    },
+  },
+};
+
+// ── action registry ────────────────────────────────────────────────────────────
+// execute(ctx, task, value) => Promise<void>
+
+const ACTIONS = {
+  unschedule: {
+    name: 'Remove from Today / unschedule',
+    execute: async (ctx, task) => {
+      await PluginAPI.updateTask(task.id, { dueDay: null, dueWithTime: null });
+      PluginAPI.log.info(`[JiraEnh] Unscheduled task "${task.title}"`);
+    },
+  },
+  scheduleToday: {
+    name: 'Schedule for Today',
+    execute: async (ctx, task) => {
+      await PluginAPI.updateTask(task.id, { dueDay: todayStr() });
+      PluginAPI.log.info(`[JiraEnh] Scheduled task "${task.title}" for today`);
+    },
+  },
+  addTag: {
+    name: 'Add tag',
+    // value = tag title (must already exist)
+    execute: async (ctx, task, value) => {
+      if (!value) return;
+      const tags = await ctx.cache.getTags();
+      const tag = tags.find((t) => t.title === value);
+      if (!tag) {
+        PluginAPI.log.warn(`[JiraEnh] Tag "${value}" not found`);
+        return;
+      }
+      if (task.tagIds && task.tagIds.includes(tag.id)) return;
+      await PluginAPI.updateTask(task.id, {
+        tagIds: [...(task.tagIds || []), tag.id],
+      });
+    },
+  },
+  showSnack: {
+    name: 'Show snack message',
+    execute: (ctx, task, value) => {
+      if (value) PluginAPI.showSnack({ msg: value, type: 'SUCCESS' });
+    },
+  },
+  moveToProjectViaDialog: {
+    name: 'Offer project picker dialog',
+    execute: async (ctx, task) => {
+      const projects = await ctx.cache.getProjects();
+      const activeProjects = projects.filter((p) => !p.isArchived);
+      const currentProject = activeProjects.find((p) => p.id === task.projectId);
+      if (!currentProject) return;
+
+      const otherProjects = activeProjects.filter((p) => p.id !== task.projectId);
+      const optionsHtml = otherProjects
+        .map((p) => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.title)}</option>`)
+        .join('');
+
+      await PluginAPI.openDialog({
+        htmlContent: `
+          <p>
+            Jira task <strong>&ldquo;${escapeHtml(task.title)}&rdquo;</strong>
+            was added to project <strong>${escapeHtml(currentProject.title)}</strong>.
+          </p>
+          ${
+            otherProjects.length > 0
+              ? `<p style="margin-top:12px">Move to a different project?</p>
+                 <select id="jira-enh-project-select"
+                         style="width:100%;padding:8px;margin-top:4px;border:1px solid #ccc;border-radius:4px">
+                   <option value="">— Keep in ${escapeHtml(currentProject.title)} —</option>
+                   ${optionsHtml}
+                 </select>`
+              : '<p style="color:gray;margin-top:8px"><em>No other projects available.</em></p>'
+          }
+        `,
+        buttons: [
+          {
+            label: 'OK',
+            color: 'primary',
+            onClick: async () => {
+              const select = document.getElementById('jira-enh-project-select');
+              const pickedProjectId = select ? select.value : null;
+              if (pickedProjectId) {
+                await PluginAPI.moveTaskToProject(task.id, pickedProjectId);
+              }
+            },
+          },
+        ],
+      });
+    },
+  },
+};
+
+// ── default rules (used when no custom rules are configured) ────────────────────
+
+const DEFAULT_RULES = [
+  {
+    name: "Don't schedule Jira imports to Today",
+    enabled: true,
+    trigger: 'taskCreated',
+    conditions: [{ type: 'isFromProvider', value: 'JIRA' }],
+    actions: [{ type: 'unschedule' }],
+  },
+  {
+    name: 'Project picker on Jira import in a project',
+    enabled: true,
+    trigger: 'taskCreated',
+    conditions: [{ type: 'isFromProvider', value: 'JIRA' }, { type: 'hasProject' }],
+    actions: [{ type: 'moveToProjectViaDialog' }],
+  },
+];
+
+// ── engine ──────────────────────────────────────────────────────────────────────
+
+async function runRule(rule, event) {
+  const cache = createDataCache();
+  const ctx = { cache };
+  const task = event.task;
+  if (!task) return;
+
+  // All conditions must pass (logical AND).
+  for (const cond of rule.conditions || []) {
+    const def = CONDITIONS[cond.type];
+    if (!def) {
+      PluginAPI.log.warn(`[JiraEnh] Unknown condition "${cond.type}"`);
+      return;
+    }
+    const ok = await def.check(ctx, task, cond.value);
+    if (!ok) return;
+  }
+
+  // Run actions in declared order.
+  for (const act of rule.actions || []) {
+    const def = ACTIONS[act.type];
+    if (!def) {
+      PluginAPI.log.warn(`[JiraEnh] Unknown action "${act.type}"`);
+      continue;
+    }
+    try {
+      await def.execute(ctx, task, act.value);
+    } catch (e) {
+      PluginAPI.log.error(`[JiraEnh] Action "${act.type}" failed: ${e}`);
+    }
+  }
+}
+
+(async () => {
+  const cfg = (await PluginAPI.getConfig()) || {};
+  const rules = Array.isArray(cfg.rules) && cfg.rules.length ? cfg.rules : DEFAULT_RULES;
+
+  const activeRules = rules.filter((r) => r && r.enabled !== false);
+  if (!activeRules.length) return;
+
+  // Register one hook handler per distinct hook used by the active rules.
+  const hooks = new Set();
+  for (const rule of activeRules) {
+    const trigger = TRIGGERS[rule.trigger];
+    if (trigger) hooks.add(trigger.hook);
+    else PluginAPI.log.warn(`[JiraEnh] Unknown trigger "${rule.trigger}"`);
+  }
+
+  for (const hook of hooks) {
+    PluginAPI.registerHook(hook, async (event) => {
+      // Normalize: hook payloads pass { taskId, task }, engine expects event.type.
+      const normalized = { type: hook, task: event.task, taskId: event.taskId };
+      for (const rule of activeRules) {
+        const trigger = TRIGGERS[rule.trigger];
+        if (trigger && trigger.matches(normalized)) {
+          await runRule(rule, normalized);
+        }
+      }
+    });
+  }
+
+  PluginAPI.log.info(
+    `[JiraEnh] Workflow engine started with ${activeRules.length} rule(s)`,
+  );
+})();

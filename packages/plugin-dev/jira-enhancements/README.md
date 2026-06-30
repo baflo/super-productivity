@@ -1,1 +1,46 @@
-IyBKaXJhIEVuaGFuY2VtZW50cwoKQSBzbWFsbCwgc2VsZi1jb250YWluZWQgKip3b3JrZmxvdyBlbmdpbmUqKiBwbHVnaW4gZm9yIFN1cGVyIFByb2R1Y3Rpdml0eS4KCkEgcnVsZSBpczogKip0cmlnZ2VyIOKGkiBjb25kaXRpb25zIChhbGwgbXVzdCBtYXRjaCkg4oaSIGFjdGlvbnMgKHJ1biBpbiBvcmRlcikqKi4KCiMjIERlZmF1bHQgYmVoYXZpb3IKCklmIHlvdSBkb24ndCBjb25maWd1cmUgYW55IHJ1bGVzLCB0d28gZGVmYXVsdHMgYXJlIGFjdGl2ZToKCjEuICoqRG9uJ3Qgc2NoZWR1bGUgSmlyYSBpbXBvcnRzIHRvIFRvZGF5Kiog4oCTIGNsZWFycyB0aGUgYXV0by1zZXQgYGR1ZURheWAgb24KICAgaW1wb3J0ZWQgSmlyYSB0YXNrcy4KMi4gKipQcm9qZWN0IHBpY2tlciBvbiBKaXJhIGltcG9ydCBpbiBhIHByb2plY3QqKiDigJMgd2hlbiBhIEppcmEgdGFzayBpcyBpbXBvcnRlZAogICB3aGlsZSB5b3UncmUgaW4gYSBwcm9qZWN0IHZpZXcsIGEgZGlhbG9nIG9mZmVycyB0byBtb3ZlIGl0IHRvIGFub3RoZXIgcHJvamVjdC4KCiMjIENvbmZpZ3VyYXRpb24KCk9wZW4gX1NldHRpbmdzIOKGkiBQbHVnaW5zIOKGkiBKaXJhIEVuaGFuY2VtZW50cyDihpIgQ29uZmlndXJlXy4gVGhlIGZvcm0gbGV0cyB5b3UgYWRkCnJ1bGVzOyBlYWNoIHJ1bGUgaGFzIGEgdHJpZ2dlciwgYSBsaXN0IG9mIGNvbmRpdGlvbnMsIGFuZCBhIGxpc3Qgb2YgYWN0aW9ucy4KQ29uZmlndXJpbmcgYW55IHJ1bGUgcmVwbGFjZXMgdGhlIGRlZmF1bHRzLgoKIyMgRXh0ZW5kaW5nCgpFdmVyeXRoaW5nIGlzIGRyaXZlbiBieSB0aHJlZSByZWdpc3RyaWVzIGluIGBwbHVnaW4uanNgOgoKLSBgVFJJR0dFUlNgIOKAkyBgeyBpZDogeyBuYW1lLCBob29rLCBtYXRjaGVzKGV2ZW50KSB9IH1gCiAgKGBob29rYCBtdXN0IGFsc28gYmUgbGlzdGVkIGluIGBtYW5pZmVzdC5qc29uYCBgaG9va3NgKQotIGBDT05ESVRJT05TYCDigJMgYHsgaWQ6IHsgbmFtZSwgY2hlY2soY3R4LCB0YXNrLCB2YWx1ZSkgfSB9YAotIGBBQ1RJT05TYCDigJMgYHsgaWQ6IHsgbmFtZSwgZXhlY3V0ZShjdHgsIHRhc2ssIHZhbHVlKSB9IH1gCgpUbyBhZGQgYSBjYXBhYmlsaXR5OiBhZGQgYW4gZW50cnkgdG8gdGhlIG1hdGNoaW5nIHJlZ2lzdHJ5LCB0aGVuIGFkZCBpdHMgYGlkYCB0bwp0aGUgY29ycmVzcG9uZGluZyBgZW51bWAgaW4gYGNvbmZpZy1zY2hlbWEuanNvbmAgc28gaXQgYXBwZWFycyBpbiB0aGUgc2V0dGluZ3MKZm9ybS4gYGN0eC5jYWNoZWAgcHJvdmlkZXMgbGF6aWx5LWxvYWRlZCwgcGVyLWV2ZW50IGBnZXRQcm9qZWN0cygpYCAvIGBnZXRUYWdzKClgLgoKIyMgQnVpbHQtaW4gcHJpbWl0aXZlcwoKfCBUcmlnZ2VycyAgICAgIHwgQ29uZGl0aW9ucyAgICAgICB8IEFjdGlvbnMgICAgICAgICAgICAgICAgICB8CnwgLS0tLS0tLS0tLS0tLSB8IC0tLS0tLS0tLS0tLS0tLS0gfCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gfAp8IGB0YXNrQ3JlYXRlZGAgfCBgaXNGcm9tUHJvdmlkZXJgIHwgYHVuc2NoZWR1bGVgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgICAgIHwgYGhhc1Byb2plY3RgICAgICB8IGBzY2hlZHVsZVRvZGF5YCAgICAgICAgICB8CnwgICAgICAgICAgICAgICB8IGB0aXRsZUNvbnRhaW5zYCAgfCBgYWRkVGFnYCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICAgICAgfCBgaGFzVGFnYCAgICAgICAgIHwgYHNob3dTbmFja2AgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICB8IGBtb3ZlVG9Qcm9qZWN0VmlhRGlhbG9nYCB8CgpgbW92ZVRvUHJvamVjdFZpYURpYWxvZ2AgdXNlcyB0aGUgYFBsdWdpbkFQSS5tb3ZlVGFza1RvUHJvamVjdCh0YXNrSWQsIHByb2plY3RJZClgCkFQSS4K
+# Jira Enhancements
+
+A small, self-contained **workflow engine** plugin for Super Productivity.
+
+A rule is: **trigger → conditions (all must match) → actions (run in order)**.
+
+## Default behavior
+
+If you don't configure any rules, two defaults are active:
+
+1. **Don't schedule Jira imports to Today** – clears the auto-set `dueDay` on
+   imported Jira tasks.
+2. **Project picker on Jira import in a project** – when a Jira task is imported
+   while you're in a project view, a dialog offers to move it to another project.
+
+## Configuration
+
+Open _Settings → Plugins → Jira Enhancements → Configure_. The form lets you add
+rules; each rule has a trigger, a list of conditions, and a list of actions.
+Configuring any rule replaces the defaults.
+
+## Extending
+
+Everything is driven by three registries in `plugin.js`:
+
+- `TRIGGERS` – `{ id: { name, hook, matches(event) } }`
+  (`hook` must also be listed in `manifest.json` `hooks`)
+- `CONDITIONS` – `{ id: { name, check(ctx, task, value) } }`
+- `ACTIONS` – `{ id: { name, execute(ctx, task, value) } }`
+
+To add a capability: add an entry to the matching registry, then add its `id` to
+the corresponding `enum` in `config-schema.json` so it appears in the settings
+form. `ctx.cache` provides lazily-loaded, per-event `getProjects()` / `getTags()`.
+
+## Built-in primitives
+
+| Triggers      | Conditions       | Actions                  |
+| ------------- | ---------------- | ------------------------ |
+| `taskCreated` | `isFromProvider` | `unschedule`             |
+|               | `hasProject`     | `scheduleToday`          |
+|               | `titleContains`  | `addTag`                 |
+|               | `hasTag`         | `showSnack`              |
+|               |                  | `moveToProjectViaDialog` |
+
+`moveToProjectViaDialog` uses the `PluginAPI.moveTaskToProject(taskId, projectId)`
+API.

@@ -1,1 +1,562 @@
-Ly8gVHlwZXMgZm9yIFN1cGVyIFByb2R1Y3Rpdml0eSBQbHVnaW4gQVBJCi8vIFRoaXMgcGFja2FnZSBwcm92aWRlcyBUeXBlU2NyaXB0IHR5cGVzIGZvciBkZXZlbG9waW5nIHBsdWdpbnMKCmV4cG9ydCBpbnRlcmZhY2UgUGx1Z2luTWVudUVudHJ5Q2ZnIHsKICBwbHVnaW5JZDogc3RyaW5nOwogIGxhYmVsOiBzdHJpbmc7CiAgaWNvbj86IHN0cmluZzsKICBvbkNsaWNrOiAoKSA9PiB2b2lkOwp9CgpleHBvcnQgZW51bSBQbHVnaW5Ib29rcyB7CiAgVEFTS19DUkVBVEVEID0gJ3Rhc2tDcmVhdGVkJywKICBUQVNLX0NPTVBMRVRFID0gJ3Rhc2tDb21wbGV0ZScsCiAgVEFTS19VUERBVEUgPSAndGFza1VwZGF0ZScsCiAgVEFTS19ERUxFVEUgPSAndGFza0RlbGV0ZScsCiAgVEFTS19TQ0hFRFVMRV9DSEFOR0UgPSAndGFza1NjaGVkdWxlQ2hhbmdlJywKICBDVVJSRU5UX1RBU0tfQ0hBTkdFID0gJ2N1cnJlbnRUYXNrQ2hhbmdlJywKICBGSU5JU0hfREFZID0gJ2ZpbmlzaERheScsCiAgTEFOR1VBR0VfQ0hBTkdFID0gJ2xhbmd1YWdlQ2hhbmdlJywKICBQRVJTSVNURURfREFUQV9VUERBVEUgPSAncGVyc2lzdGVkRGF0YVVwZGF0ZScsCiAgQUNUSU9OID0gJ2FjdGlvbicsCiAgQU5ZX1RBU0tfVVBEQVRFID0gJ2FueVRhc2tVcGRhdGUnLAogIFBST0pFQ1RfTElTVF9VUERBVEUgPSAncHJvamVjdExpc3RVcGRhdGUnLAp9CgpleHBvcnQgdHlwZSBIb29rcyA9IFBsdWdpbkhvb2tzOwoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5CYXNlQ2ZnIHsKICB0aGVtZTogJ2xpZ2h0JyB8ICdkYXJrJzsKICBhcHBWZXJzaW9uOiBzdHJpbmc7CiAgcGxhdGZvcm06ICd3ZWInIHwgJ2Rlc2t0b3AnIHwgJ2FuZHJvaWQnIHwgJ2lvcyc7CiAgaXNEZXY6IGJvb2xlYW47CiAgbGFuZz86IHsKICAgIGNvZGU6IHN0cmluZzsKICAgIFtrZXk6IHN0cmluZ106IHVua25vd247CiAgfTsKfQoKZXhwb3J0IGludGVyZmFjZSBEaWFsb2dCdXR0b25DZmcgewogIGxhYmVsOiBzdHJpbmc7CiAgaWNvbj86IHN0cmluZzsKICBvbkNsaWNrOiAoKSA9PiB2b2lkIHwgUHJvbWlzZTx2b2lkPjsKICBjb2xvcj86ICdwcmltYXJ5JyB8ICd3YXJuJzsKfQoKZXhwb3J0IGludGVyZmFjZSBEaWFsb2dDZmcgewogIGh0bWxDb250ZW50Pzogc3RyaW5nOwogIGJ1dHRvbnM/OiBEaWFsb2dCdXR0b25DZmdbXTsKfQoKZXhwb3J0IGludGVyZmFjZSBTbmFja0NmZyB7CiAgbXNnOiBzdHJpbmc7CiAgdHlwZT86ICdTVUNDRVNTJyB8ICdFUlJPUicgfCAnV0FSTklORycgfCAnSU5GTyc7CiAgaWNvPzogc3RyaW5nOwp9CgpleHBvcnQgdHlwZSBTbmFja0NmZ0xpbWl0ZWQgPSBTbmFja0NmZzsKCmV4cG9ydCBpbnRlcmZhY2UgTm90aWZ5Q2ZnIHsKICB0aXRsZTogc3RyaW5nOwogIGJvZHk6IHN0cmluZzsKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5Ob2RlU2NyaXB0Q29uZmlnIHsKICBhbGxvd2VkUGF0aHM/OiBzdHJpbmdbXTsgLy8gU3BlY2lmaWMgcGF0aHMgdGhlIHNjcmlwdCBjYW4gYWNjZXNzCiAgdGltZW91dD86IG51bWJlcjsgLy8gRGVmYXVsdCB0aW1lb3V0IGluIG1pbGxpc2Vjb25kcyBmb3Igc2NyaXB0cwogIG1lbW9yeUxpbWl0Pzogc3RyaW5nOyAvLyBEZWZhdWx0IG1lbW9yeSBsaW1pdCAoZS5nLiwgJzEyOE1CJywgJzI1Nk1CJykKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5Ob2RlU2NyaXB0UmVxdWVzdCB7CiAgc2NyaXB0OiBzdHJpbmc7CiAgdGltZW91dD86IG51bWJlcjsKICBhcmdzPzogdW5rbm93bltdOwp9CgpleHBvcnQgaW50ZXJmYWNlIFBsdWdpbk5vZGVTY3JpcHRFcnJvciB7CiAgY29kZToKICAgIHwgJ1RJTUVPVVQnCiAgICB8ICdNRU1PUllfTElNSVQnCiAgICB8ICdTQ1JJUFRfRVJST1InCiAgICB8ICdQRVJNSVNTSU9OX0RFTklFRCcKICAgIHwgJ0lOVkFMSURfU0NSSVBUJwogICAgfCAnTk9fQ09OU0VOVCc7CiAgbWVzc2FnZTogc3RyaW5nOwogIGRldGFpbHM/OiB7CiAgICBsaW5lPzogbnVtYmVyOwogICAgY29sdW1uPzogbnVtYmVyOwogICAgc2NyaXB0U25pcHBldD86IHN0cmluZzsKICB9Owp9CgpleHBvcnQgaW50ZXJmYWNlIFBsdWdpbk5vZGVTY3JpcHRSZXN1bHQgewogIHN1Y2Nlc3M6IGJvb2xlYW47CiAgcmVzdWx0PzogdW5rbm93bjsKICBlcnJvcj86IHN0cmluZyB8IFBsdWdpbk5vZGVTY3JpcHRFcnJvcjsKICBleGVjdXRpb25UaW1lPzogbnVtYmVyOwogIHJlc291cmNlVXNhZ2U/OiB7CiAgICBwZWFrTWVtb3J5TUI/OiBudW1iZXI7CiAgICBjcHVUaW1lPzogbnVtYmVyOwogIH07Cn0KCmV4cG9ydCBpbnRlcmZhY2UgUGx1Z2luTWFuaWZlc3QgewogIG5hbWU6IHN0cmluZzsKICBpZDogc3RyaW5nOwogIG1hbmlmZXN0VmVyc2lvbjogbnVtYmVyOwogIHZlcnNpb246IHN0cmluZzsKICBtaW5TdXBWZXJzaW9uOiBzdHJpbmc7CiAgZGVzY3JpcHRpb24/OiBzdHJpbmc7CiAgaG9va3M6IEhvb2tzW107CiAgcGVybWlzc2lvbnM6IHN0cmluZ1tdOwogIGlGcmFtZT86IGJvb2xlYW47CiAgaXNTa2lwTWVudUVudHJ5PzogYm9vbGVhbjsKICB0eXBlPzogJ3N0YW5kYXJkJzsKICBhc3NldHM/OiBzdHJpbmdbXTsKICBpY29uPzogc3RyaW5nOyAvLyBQYXRoIHRvIFNWRyBpY29uIGZpbGUgcmVsYXRpdmUgdG8gcGx1Z2luIHJvb3QKICBub2RlU2NyaXB0Q29uZmlnPzogUGx1Z2luTm9kZVNjcmlwdENvbmZpZzsKICBzaWRlUGFuZWw/OiBib29sZWFuOyAvLyBJZiB0cnVlLCBwbHVnaW4gbG9hZHMgaW4gcmlnaHQgcGFuZWwgaW5zdGVhZCBvZiByb3V0ZQogIGpzb25TY2hlbWFDZmc/OiBzdHJpbmc7IC8vIFBhdGggdG8gSlNPTiBzY2hlbWEgZmlsZSBmb3IgcGx1Z2luIGNvbmZpZ3VyYXRpb24gcmVsYXRpdmUgdG8gcGx1Z2luIHJvb3QKfQoKLy8gSG9vayBwYXlsb2FkIHR5cGVzCmV4cG9ydCBpbnRlcmZhY2UgVGFza0NyZWF0ZWRQYXlsb2FkIHsKICB0YXNrSWQ6IHN0cmluZzsKICB0YXNrOiBUYXNrOwp9CgpleHBvcnQgaW50ZXJmYWNlIFRhc2tDb21wbGV0ZVBheWxvYWQgewogIHRhc2tJZDogc3RyaW5nOwogIHRhc2s6IFRhc2s7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgVGFza1VwZGF0ZVBheWxvYWQgewogIHRhc2tJZDogc3RyaW5nOwogIHRhc2s6IFRhc2s7CiAgY2hhbmdlczogUGFydGlhbDxUYXNrPjsKfQoKZXhwb3J0IGludGVyZmFjZSBUYXNrRGVsZXRlUGF5bG9hZCB7CiAgdGFza0lkOiBzdHJpbmc7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgVGFza1NjaGVkdWxlQ2hhbmdlUGF5bG9hZCB7CiAgdGFzazogVGFzazsKICBhY3Rpb246IHN0cmluZzsKfQoKZXhwb3J0IGludGVyZmFjZSBDdXJyZW50VGFza0NoYW5nZVBheWxvYWQgewogIGN1cnJlbnQ6IFRhc2sgfCBudWxsOwogIHByZXZpb3VzOiBUYXNrIHwgbnVsbDsKfQoKZXhwb3J0IGludGVyZmFjZSBGaW5pc2hEYXlQYXlsb2FkIHsKICBkYXRlOiBzdHJpbmc7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgTGFuZ3VhZ2VDaGFuZ2VQYXlsb2FkIHsKICBjb2RlOiBzdHJpbmc7CgogIFtrZXk6IHN0cmluZ106IHVua25vd247Cn0KCmV4cG9ydCBpbnRlcmZhY2UgUGVyc2lzdGVkRGF0YVVwZGF0ZVBheWxvYWQgewogIGRhdGE6IHN0cmluZzsKfQoKZXhwb3J0IGludGVyZmFjZSBBY3Rpb25QYXlsb2FkIHsKICBhY3Rpb246IHN0cmluZzsKICBwYXlsb2FkPzogdW5rbm93bjsKfQoKZXhwb3J0IGludGVyZmFjZSBBbnlUYXNrVXBkYXRlUGF5bG9hZCB7CiAgYWN0aW9uOiBzdHJpbmc7CiAgdGFza0lkPzogc3RyaW5nOwogIHRhc2s/OiBUYXNrOwogIGNoYW5nZXM/OiBQYXJ0aWFsPFRhc2s+Owp9CgpleHBvcnQgaW50ZXJmYWNlIFByb2plY3RMaXN0VXBkYXRlUGF5bG9hZCB7CiAgYWN0aW9uOiBzdHJpbmc7CiAgcHJvamVjdElkPzogc3RyaW5nOwogIHByb2plY3Q/OiBQcm9qZWN0OwogIGNoYW5nZXM/OiBQYXJ0aWFsPFByb2plY3Q+Owp9CgovLyBNYXAgaG9vayB0eXBlcyB0byB0aGVpciBwYXlsb2FkIHR5cGVzCmV4cG9ydCBpbnRlcmZhY2UgSG9va1BheWxvYWRNYXAgewogIFtQbHVnaW5Ib29rcy5UQVNLX0NSRUFURURdOiBUYXNrQ3JlYXRlZFBheWxvYWQ7CiAgW1BsdWdpbkhvb2tzLlRBU0tfQ09NUExFVEVdOiBUYXNrQ29tcGxldGVQYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5UQVNLX1VQREFURV06IFRhc2tVcGRhdGVQYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5UQVNLX0RFTEVURV06IFRhc2tEZWxldGVQYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5UQVNLX1NDSEVEVUxFX0NIQU5HRV06IFRhc2tTY2hlZHVsZUNoYW5nZVBheWxvYWQ7CiAgW1BsdWdpbkhvb2tzLkNVUlJFTlRfVEFTS19DSEFOR0VdOiBDdXJyZW50VGFza0NoYW5nZVBheWxvYWQ7CiAgW1BsdWdpbkhvb2tzLkZJTklTSF9EQVldOiBGaW5pc2hEYXlQYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5MQU5HVUFHRV9DSEFOR0VdOiBMYW5ndWFnZUNoYW5nZVBheWxvYWQ7CiAgW1BsdWdpbkhvb2tzLlBFUlNJU1RFRF9EQVRBX1VQREFURV06IFBlcnNpc3RlZERhdGFVcGRhdGVQYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5BQ1RJT05dOiBBY3Rpb25QYXlsb2FkOwogIFtQbHVnaW5Ib29rcy5BTllfVEFTS19VUERBVEVdOiBBbnlUYXNrVXBkYXRlUGF5bG9hZDsKICBbUGx1Z2luSG9va3MuUFJPSkVDVF9MSVNUX1VQREFURV06IFByb2plY3RMaXN0VXBkYXRlUGF5bG9hZDsKfQoKLy8gR2VuZXJpYyBob29rIGhhbmRsZXIgd2l0aCB0eXBlZCBwYXlsb2FkCmV4cG9ydCB0eXBlIFBsdWdpbkhvb2tIYW5kbGVyPFQgZXh0ZW5kcyBIb29rcyA9IEhvb2tzPiA9ICgKICBwYXlsb2FkOiBUIGV4dGVuZHMga2V5b2YgSG9va1BheWxvYWRNYXAgPyBIb29rUGF5bG9hZE1hcFtUXSA6IHVua25vd24sCikgPT4gdm9pZCB8IFByb21pc2U8dm9pZD47CgovLyBDb3JlIGRhdGEgdHlwZXMgLSBTaW5nbGUgc291cmNlIG9mIHRydXRoIGZvciBib3RoIHBsdWdpbnMgYW5kIGFwcApleHBvcnQgaW50ZXJmYWNlIFRhc2sgewogIGlkOiBzdHJpbmc7CiAgdGl0bGU6IHN0cmluZzsKICBub3Rlcz86IHN0cmluZzsKICB0aW1lRXN0aW1hdGU6IG51bWJlcjsKICB0aW1lU3BlbnQ6IG51bWJlcjsKICBpc0RvbmU6IGJvb2xlYW47CiAgcHJvamVjdElkOiBzdHJpbmcgfCBudWxsOwogIHRhZ0lkczogc3RyaW5nW107CiAgcGFyZW50SWQ/OiBzdHJpbmcgfCBudWxsOwogIGNyZWF0ZWQ6IG51bWJlcjsKICB1cGRhdGVkPzogbnVtYmVyOwogIHN1YlRhc2tJZHM6IHN0cmluZ1tdOwoKICAvLyBBZGRpdGlvbmFsIGZpZWxkcyBmb3IgaW50ZXJuYWwgdXNlIChwbHVnaW5zIGNhbiByZWFkIGJ1dCBzaG91bGRuJ3QgbW9kaWZ5KQogIHRpbWVTcGVudE9uRGF5PzogeyBba2V5OiBzdHJpbmddOiBudW1iZXIgfTsKICBkb25lT24/OiBudW1iZXIgfCBudWxsOwogIGF0dGFjaG1lbnRzPzogYW55W107CiAgcmVtaW5kZXJJZD86IHN0cmluZyB8IG51bGw7CiAgcmVwZWF0Q2ZnSWQ/OiBzdHJpbmcgfCBudWxsOwoKICAvLyBJc3N1ZSB0cmFja2luZyBmaWVsZHMgKG9wdGlvbmFsKQogIGlzc3VlSWQ/OiBzdHJpbmcgfCBudWxsOwogIGlzc3VlUHJvdmlkZXJJZD86IHN0cmluZyB8IG51bGw7CiAgaXNzdWVUeXBlPzogYW55IHwgbnVsbDsgLy8gSXNzdWVQcm92aWRlcktleSBpbiBhcHAKICBpc3N1ZVdhc1VwZGF0ZWQ/OiBib29sZWFuOwogIGlzc3VlTGFzdFVwZGF0ZWQ/OiBudW1iZXIgfCBudWxsOwogIGlzc3VlQXR0YWNobWVudE5yPzogbnVtYmVyOwogIGlzc3VlUG9pbnRzPzogbnVtYmVyIHwgbnVsbDsKCiAgLy8gVUkgc3RhdGUgKGludGVybmFsKQogIF9oaWRlU3ViVGFza3NNb2RlPzogbnVtYmVyOwp9CgpleHBvcnQgaW50ZXJmYWNlIFByb2plY3RGb2xkZXIgewogIGlkOiBzdHJpbmc7CiAgdGl0bGU6IHN0cmluZzsKICBpY29uPzogc3RyaW5nIHwgbnVsbDsKICBwYXJlbnRJZD86IHN0cmluZyB8IG51bGw7CiAgaXNFeHBhbmRlZD86IGJvb2xlYW47CiAgY3JlYXRlZDogbnVtYmVyOwogIHVwZGF0ZWQ/OiBudW1iZXI7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgUHJvamVjdCB7CiAgaWQ6IHN0cmluZzsKICB0aXRsZTogc3RyaW5nOwogIHRoZW1lOiB7CiAgICBwcmltYXJ5Pzogc3RyaW5nOwogICAgaXNBdXRvQ29udHJhc3Q/OiBib29sZWFuOwogICAgW2tleTogc3RyaW5nXTogdW5rbm93bjsKICB9OwogIGlzQXJjaGl2ZWQ/OiBib29sZWFuOwogIGNyZWF0ZWQ/OiBudW1iZXI7CiAgdXBkYXRlZD86IG51bWJlcjsKICB0YXNrSWRzOiBzdHJpbmdbXTsKICBiYWNrbG9nVGFza0lkczogc3RyaW5nW107CiAgbm90ZUlkczogc3RyaW5nW107CiAgaXNFbmFibGVCYWNrbG9nPzogYm9vbGVhbjsKICBpc0hpZGRlbkZyb21NZW51PzogYm9vbGVhbjsKICBmb2xkZXJJZD86IHN0cmluZyB8IG51bGw7CgogIC8vIEFkdmFuY2VkIGNvbmZpZyAoaW50ZXJuYWwpIC0gbXVzdCBiZSBhbnkgdG8gbWF0Y2ggV29ya0NvbnRleHRDb21tb24KICBhZHZhbmNlZENmZzogdW5rbm93bjsKICBpY29uPzogc3RyaW5nIHwgbnVsbDsKfQoKZXhwb3J0IGludGVyZmFjZSBUYWcgewogIGlkOiBzdHJpbmc7CiAgdGl0bGU6IHN0cmluZzsKICBjb2xvcj86IHN0cmluZyB8IG51bGw7CiAgY3JlYXRlZDogbnVtYmVyOwogIHVwZGF0ZWQ/OiBudW1iZXI7CiAgdGFza0lkczogc3RyaW5nW107CiAgaWNvbj86IHN0cmluZyB8IG51bGw7CgogIC8vIEFkdmFuY2VkIGNvbmZpZyAoaW50ZXJuYWwpIC0gbXVzdCBiZSBhbnkgdG8gbWF0Y2ggV29ya0NvbnRleHRDb21tb24KICB0aGVtZTogdW5rbm93bjsKICBhZHZhbmNlZENmZzogdW5rbm93bjsKfQoKLy8gTGVnYWN5IGFsaWFzZXMgZm9yIGJhY2t3YXJkIGNvbXBhdGliaWxpdHkKLyoqIEBkZXByZWNhdGVkIFVzZSBUYXNrIGluc3RlYWQgKi8KZXhwb3J0IHR5cGUgVGFza0RhdGEgPSBUYXNrOwovKiogQGRlcHJlY2F0ZWQgVXNlIFRhc2sgaW5zdGVhZCAqLwpleHBvcnQgdHlwZSBUYXNrQ29weSA9IFRhc2s7CgovKiogQGRlcHJlY2F0ZWQgVXNlIFByb2plY3QgaW5zdGVhZCAqLwpleHBvcnQgdHlwZSBQcm9qZWN0RGF0YSA9IFByb2plY3Q7Ci8qKiBAZGVwcmVjYXRlZCBVc2UgUHJvamVjdCBpbnN0ZWFkICovCmV4cG9ydCB0eXBlIFByb2plY3RDb3B5ID0gUHJvamVjdDsKCi8qKiBAZGVwcmVjYXRlZCBVc2UgVGFnIGluc3RlYWQgKi8KZXhwb3J0IHR5cGUgVGFnRGF0YSA9IFRhZzsKLyoqIEBkZXByZWNhdGVkIFVzZSBUYWcgaW5zdGVhZCAqLwpleHBvcnQgdHlwZSBUYWdDb3B5ID0gVGFnOwoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5IZWFkZXJCdG5DZmcgewogIHBsdWdpbklkOiBzdHJpbmc7CiAgbGFiZWw6IHN0cmluZzsKICBpY29uPzogc3RyaW5nOwogIG9uQ2xpY2s6ICgpID0+IHZvaWQ7CiAgY29sb3I/OiAncHJpbWFyeScgfCAnYWNjZW50JyB8ICd3YXJuJzsKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5TaWRlUGFuZWxCdG5DZmcgewogIHBsdWdpbklkOiBzdHJpbmc7CiAgbGFiZWw6IHN0cmluZzsKICBpY29uPzogc3RyaW5nOwogIG9uQ2xpY2s6ICgpID0+IHZvaWQ7Cn0KCmV4cG9ydCBpbnRlcmZhY2UgUGx1Z2luQVBJIHsKICBjZmc6IFBsdWdpbkJhc2VDZmc7CgogIHJlZ2lzdGVySG9vazxUIGV4dGVuZHMgSG9va3M+KGhvb2s6IFQsIGZuOiBQbHVnaW5Ib29rSGFuZGxlcjxUPik6IHZvaWQ7CgogIHJlZ2lzdGVySGVhZGVyQnV0dG9uKGhlYWRlckJ0bkNmZzogT21pdDxQbHVnaW5IZWFkZXJCdG5DZmcsICdwbHVnaW5JZCc+KTogdm9pZDsKCiAgcmVnaXN0ZXJNZW51RW50cnkobWVudUVudHJ5Q2ZnOiBPbWl0PFBsdWdpbk1lbnVFbnRyeUNmZywgJ3BsdWdpbklkJz4pOiB2b2lkOwoKICByZWdpc3RlclNob3J0Y3V0KAogICAgc2hvcnRjdXRDZmc6IE9taXQ8UGx1Z2luU2hvcnRjdXRDZmcsICdwbHVnaW5JZCc+ICYgeyBpZD86IHN0cmluZyB9LAogICk6IHZvaWQ7CgogIHJlZ2lzdGVyU2lkZVBhbmVsQnV0dG9uKHNpZGVQYW5lbEJ0bkNmZzogT21pdDxQbHVnaW5TaWRlUGFuZWxCdG5DZmcsICdwbHVnaW5JZCc+KTogdm9pZDsKCiAgLy8gY3Jvc3MtcHJvY2VzcyBjb21tdW5pY2F0aW9uCiAgb25NZXNzYWdlPyhoYW5kbGVyOiAobWVzc2FnZTogdW5rbm93bikgPT4gUHJvbWlzZTx1bmtub3duPiB8IHVua25vd24pOiB2b2lkOwoKICAvLyB1aSBicmlkZ2UKICBzaG93U25hY2soc25hY2tDZmc6IFNuYWNrQ2ZnKTogdm9pZDsKCiAgbm90aWZ5KG5vdGlmeUNmZzogTm90aWZ5Q2ZnKTogUHJvbWlzZTx2b2lkPjsKCiAgc2hvd0luZGV4SHRtbEFzVmlldygpOiB2b2lkOwoKICBvcGVuRGlhbG9nKGRpYWxvZ0NmZzogRGlhbG9nQ2ZnKTogUHJvbWlzZTx2b2lkPjsKCiAgLy8gdGFza3MKICBnZXRUYXNrcygpOiBQcm9taXNlPFRhc2tbXT47CgogIGdldEFyY2hpdmVkVGFza3MoKTogUHJvbWlzZTxUYXNrW10+OwoKICBnZXRDdXJyZW50Q29udGV4dFRhc2tzKCk6IFByb21pc2U8VGFza1tdPjsKCiAgdXBkYXRlVGFzayh0YXNrSWQ6IHN0cmluZywgdXBkYXRlczogUGFydGlhbDxUYXNrPik6IFByb21pc2U8dm9pZD47CgogIGFkZFRhc2sodGFza0RhdGE6IFBsdWdpbkNyZWF0ZVRhc2tEYXRhKTogUHJvbWlzZTxzdHJpbmc+OwoKICBkZWxldGVUYXNrKHRhc2tJZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPjsKCiAgbW92ZVRhc2tUb1Byb2plY3QodGFza0lkOiBzdHJpbmcsIHRhcmdldFByb2plY3RJZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPjsKCiAgYmF0Y2hVcGRhdGVGb3JQcm9qZWN0KHJlcXVlc3Q6IEJhdGNoVXBkYXRlUmVxdWVzdCk6IFByb21pc2U8QmF0Y2hVcGRhdGVSZXN1bHQ+OwoKICAvLyBwcm9qZWN0cwogIGdldEFsbFByb2plY3RzKCk6IFByb21pc2U8UHJvamVjdFtdPjsKCiAgYWRkUHJvamVjdChwcm9qZWN0RGF0YTogUGFydGlhbDxQcm9qZWN0Pik6IFByb21pc2U8c3RyaW5nPjsKCiAgdXBkYXRlUHJvamVjdChwcm9qZWN0SWQ6IHN0cmluZywgdXBkYXRlczogUGFydGlhbDxQcm9qZWN0Pik6IFByb21pc2U8dm9pZD47CgogIC8vIHRhZ3MKICBnZXRBbGxUYWdzKCk6IFByb21pc2U8VGFnW10+OwoKICBhZGRUYWcodGFnRGF0YTogUGFydGlhbDxUYWc+KTogUHJvbWlzZTxzdHJpbmc+OwoKICB1cGRhdGVUYWcodGFnSWQ6IHN0cmluZywgdXBkYXRlczogUGFydGlhbDxUYWc+KTogUHJvbWlzZTx2b2lkPjsKCiAgLy8gdGFzayBvcmRlcmluZwogIHJlb3JkZXJUYXNrcygKICAgIHRhc2tJZHM6IHN0cmluZ1tdLAogICAgY29udGV4dElkOiBzdHJpbmcsCiAgICBjb250ZXh0VHlwZTogJ3Byb2plY3QnIHwgJ3Rhc2snLAogICk6IFByb21pc2U8dm9pZD47CgogIC8vIGxvZ2dpbmcKICBsb2c6IHsKICAgIGNyaXRpY2FsOiAoLi4uYXJnczogdW5rbm93bltdKSA9PiB2b2lkOwogICAgZXJyOiAoLi4uYXJnczogdW5rbm93bltdKSA9PiB2b2lkOwogICAgbG9nOiAoLi4uYXJnczogdW5rbm93bltdKSA9PiB2b2lkOwogICAgaW5mbzogKC4uLmFyZ3M6IHVua25vd25bXSkgPT4gdm9pZDsKICAgIHZlcmJvc2U6ICguLi5hcmdzOiB1bmtub3duW10pID0+IHZvaWQ7CiAgICBkZWJ1ZzogKC4uLmFyZ3M6IHVua25vd25bXSkgPT4gdm9pZDsKICAgIGVycm9yOiAoLi4uYXJnczogdW5rbm93bltdKSA9PiB2b2lkOwogICAgbm9ybWFsOiAoLi4uYXJnczogdW5rbm93bltdKSA9PiB2b2lkOwogICAgd2FybjogKC4uLmFyZ3M6IHVua25vd25bXSkgPT4gdm9pZDsKICB9OwoKICAvLyBwZXJzaXN0ZW5jZQogIHBlcnNpc3REYXRhU3luY2VkKGRhdGFTdHI6IHN0cmluZyk6IFByb21pc2U8dm9pZD47CgogIGxvYWRTeW5jZWREYXRhKCk6IFByb21pc2U8c3RyaW5nIHwgbnVsbD47CgogIGdldENvbmZpZzxUID0gUmVjb3JkPHN0cmluZywgdW5rbm93bj4+KCk6IFByb21pc2U8VCB8IG51bGw+OwoKICAvLyBkb3dubG9hZCBmaWxlCiAgZG93bmxvYWRGaWxlKGZpbGVuYW1lOiBzdHJpbmcsIGRhdGE6IHN0cmluZyk6IFByb21pc2U8dm9pZD47CgogIC8vIG5vZGUgZXhlY3V0aW9uIChvbmx5IGF2YWlsYWJsZSBpbiBFbGVjdHJvbiB3aXRoIG5vZGVFeGVjdXRpb24gcGVybWlzc2lvbikKICBleGVjdXRlTm9kZVNjcmlwdD8ocmVxdWVzdDogUGx1Z2luTm9kZVNjcmlwdFJlcXVlc3QpOiBQcm9taXNlPFBsdWdpbk5vZGVTY3JpcHRSZXN1bHQ+OwoKICAvLyBhY3Rpb24gZXhlY3V0aW9uIC0gZGlzcGF0Y2ggTmdSeCBhY3Rpb25zIChsaW1pdGVkIHRvIGFsbG93ZWQgc3Vic2V0KQogIGRpc3BhdGNoQWN0aW9uKGFjdGlvbjogeyB0eXBlOiBzdHJpbmc7IFtrZXk6IHN0cmluZ106IHVua25vd24gfSk6IHZvaWQ7CgogIC8vIHdpbmRvdyBzdGF0ZQogIGlzV2luZG93Rm9jdXNlZCgpOiBib29sZWFuOwoKICBvbldpbmRvd0ZvY3VzQ2hhbmdlPyhoYW5kbGVyOiAoaXNGb2N1c2VkOiBib29sZWFuKSA9PiB2b2lkKTogdm9pZDsKCiAgLy8gc2ltcGxlIGNvdW50ZXJzCiAgc2V0Q291bnRlcihpZDogc3RyaW5nLCB2YWx1ZTogbnVtYmVyKTogUHJvbWlzZTx2b2lkPjsKCiAgZ2V0Q291bnRlcihpZDogc3RyaW5nKTogUHJvbWlzZTxudW1iZXIgfCBudWxsPjsKCiAgaW5jcmVtZW50Q291bnRlcihpZDogc3RyaW5nLCBpbmNyZW1lbnRCeT86IG51bWJlcik6IFByb21pc2U8bnVtYmVyPjsKCiAgZGVjcmVtZW50Q291bnRlcihpZDogc3RyaW5nLCBkZWNyZW1lbnRCeT86IG51bWJlcik6IFByb21pc2U8bnVtYmVyPjsKCiAgZGVsZXRlQ291bnRlcihpZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPjsKCiAgZ2V0QWxsQ291bnRlcnMoKTogUHJvbWlzZTx7IFtpZDogc3RyaW5nXTogbnVtYmVyIH0+Owp9CgpleHBvcnQgaW50ZXJmYWNlIFBsdWdpbkluc3RhbmNlIHsKICBtYW5pZmVzdDogUGx1Z2luTWFuaWZlc3Q7CiAgbG9hZGVkOiBib29sZWFuOwogIGlzRW5hYmxlZDogYm9vbGVhbjsKICBlcnJvcj86IHN0cmluZzsKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5Ib29rSGFuZGxlclJlZ2lzdHJhdGlvbjxUIGV4dGVuZHMgSG9va3MgPSBIb29rcz4gewogIHBsdWdpbklkOiBzdHJpbmc7CiAgaG9vazogVDsKICBoYW5kbGVyOiBQbHVnaW5Ib29rSGFuZGxlcjxUPjsKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5DcmVhdGVUYXNrRGF0YSB7CiAgdGl0bGU6IHN0cmluZzsKICBwcm9qZWN0SWQ/OiBzdHJpbmcgfCBudWxsOwogIHRhZ0lkcz86IHN0cmluZ1tdOwogIG5vdGVzPzogc3RyaW5nOwogIHRpbWVFc3RpbWF0ZT86IG51bWJlcjsKICBwYXJlbnRJZD86IHN0cmluZyB8IG51bGw7CiAgaXNEb25lPzogYm9vbGVhbjsKfQoKZXhwb3J0IGludGVyZmFjZSBQbHVnaW5TaG9ydGN1dENmZyB7CiAgcGx1Z2luSWQ6IHN0cmluZzsKICBpZDogc3RyaW5nOwogIGxhYmVsOiBzdHJpbmc7CiAgb25FeGVjOiAoKSA9PiB2b2lkOwp9CgpleHBvcnQgaW50ZXJmYWNlIEJhdGNoVGFza0NyZWF0ZSB7CiAgdHlwZTogJ2NyZWF0ZSc7CiAgdGVtcElkOiBzdHJpbmc7IC8vIFRlbXBvcmFyeSBJRCB0byByZWZlcmVuY2UgaW4gb3RoZXIgb3BlcmF0aW9ucwogIGRhdGE6IHsKICAgIHRpdGxlOiBzdHJpbmc7CiAgICBub3Rlcz86IHN0cmluZzsKICAgIGlzRG9uZT86IGJvb2xlYW47CiAgICBwYXJlbnRJZD86IHN0cmluZyB8IG51bGw7IC8vIENhbiByZWZlcmVuY2UgdGVtcElkIG9yIGV4aXN0aW5nIHRhc2sgSUQKICAgIHRpbWVFc3RpbWF0ZT86IG51bWJlcjsKICB9Owp9CgpleHBvcnQgaW50ZXJmYWNlIEJhdGNoVGFza1VwZGF0ZSB7CiAgdHlwZTogJ3VwZGF0ZSc7CiAgdGFza0lkOiBzdHJpbmc7IC8vIEV4aXN0aW5nIHRhc2sgSUQKICB1cGRhdGVzOiB7CiAgICB0aXRsZT86IHN0cmluZzsKICAgIG5vdGVzPzogc3RyaW5nOwogICAgaXNEb25lPzogYm9vbGVhbjsKICAgIHBhcmVudElkPzogc3RyaW5nIHwgbnVsbDsKICAgIHRpbWVFc3RpbWF0ZT86IG51bWJlcjsKICAgIHN1YlRhc2tJZHM/OiBzdHJpbmdbXTsKICB9Owp9CgpleHBvcnQgaW50ZXJmYWNlIEJhdGNoVGFza0RlbGV0ZSB7CiAgdHlwZTogJ2RlbGV0ZSc7CiAgdGFza0lkOiBzdHJpbmc7IC8vIEV4aXN0aW5nIHRhc2sgSUQKfQoKZXhwb3J0IGludGVyZmFjZSBCYXRjaFRhc2tSZW9yZGVyIHsKICB0eXBlOiAncmVvcmRlcic7CiAgdGFza0lkczogc3RyaW5nW107IC8vIENhbiBpbmNsdWRlIHRlbXBJZHMgZm9yIG5ld2x5IGNyZWF0ZWQgdGFza3MKfQoKZXhwb3J0IHR5cGUgQmF0Y2hPcGVyYXRpb24gPQogIHwgQmF0Y2hUYXNrQ3JlYXRlCiAgfCBCYXRjaFRhc2tVcGRhdGUKICB8IEJhdGNoVGFza0RlbGV0ZQogIHwgQmF0Y2hUYXNrUmVvcmRlcjsKCmV4cG9ydCBpbnRlcmZhY2UgQmF0Y2hVcGRhdGVSZXF1ZXN0IHsKICBwcm9qZWN0SWQ6IHN0cmluZzsKICBvcGVyYXRpb25zOiBCYXRjaE9wZXJhdGlvbltdOwp9CgpleHBvcnQgaW50ZXJmYWNlIEJhdGNoVXBkYXRlUmVzdWx0IHsKICBzdWNjZXNzOiBib29sZWFuOwogIC8vIE1hcCB0ZW1wb3JhcnkgSURzIHRvIGFjdHVhbCBjcmVhdGVkIHRhc2sgSURzCiAgY3JlYXRlZFRhc2tJZHM6IHsgW3RlbXBJZDogc3RyaW5nXTogc3RyaW5nIH07CiAgZXJyb3JzPzogQmF0Y2hVcGRhdGVFcnJvcltdOwp9CgpleHBvcnQgaW50ZXJmYWNlIEJhdGNoVXBkYXRlRXJyb3IgewogIG9wZXJhdGlvbkluZGV4OiBudW1iZXI7CiAgdHlwZToKICAgIHwgJ1ZBTElEQVRJT05fRVJST1InCiAgICB8ICdDSVJDVUxBUl9ERVBFTkRFTkNZJwogICAgfCAnVEFTS19OT1RfRk9VTkQnCiAgICB8ICdPVVRTSURFX1BST0pFQ1QnCiAgICB8ICdVTktOT1dOJzsKICBtZXNzYWdlOiBzdHJpbmc7Cn0KCi8qKgogKiBFbnVtIGZvciBwbHVnaW4gaWZyYW1lIG1lc3NhZ2UgdHlwZXMgLSB1c2VkIGZvciBjb21tdW5pY2F0aW9uIGJldHdlZW4KICogcGx1Z2luIGlmcmFtZXMgYW5kIHRoZSBob3N0IGFwcGxpY2F0aW9uCiAqLwpleHBvcnQgZW51bSBQbHVnaW5JZnJhbWVNZXNzYWdlVHlwZSB7CiAgLy8gQVBJIGNvbW11bmljYXRpb24KICBBUElfQ0FMTCA9ICdQTFVHSU5fQVBJX0NBTEwnLAogIEFQSV9SRVNQT05TRSA9ICdQTFVHSU5fQVBJX1JFU1BPTlNFJywKICBBUElfRVJST1IgPSAnUExVR0lOX0FQSV9FUlJPUicsCgogIC8vIEhvb2sgZXZlbnRzCiAgSE9PS19FVkVOVCA9ICdQTFVHSU5fSE9PS19FVkVOVCcsCgogIC8vIERpYWxvZyBpbnRlcmFjdGlvbgogIERJQUxPR19CVVRUT05fQ0xJQ0sgPSAnUExVR0lOX0RJQUxPR19CVVRUT05fQ0xJQ0snLAogIERJQUxPR19CVVRUT05fUkVTUE9OU0UgPSAnUExVR0lOX0RJQUxPR19CVVRUT05fUkVTUE9OU0UnLAoKICAvLyBNZXNzYWdlIGZvcndhcmRpbmcKICBNRVNTQUdFID0gJ1BMVUdJTl9NRVNTQUdFJywKICBNRVNTQUdFX1JFU1BPTlNFID0gJ1BMVUdJTl9NRVNTQUdFX1JFU1BPTlNFJywKICBNRVNTQUdFX0VSUk9SID0gJ1BMVUdJTl9NRVNTQUdFX0VSUk9SJywKCiAgLy8gUGx1Z2luIGxpZmVjeWNsZQogIFJFQURZID0gJ3BsdWdpbi1yZWFkeScsCn0KCi8vIEdsb2JhbCBQbHVnaW5BUEkgaW50ZXJmYWNlIGZvciBydW50aW1lIHVzZQovLyBOb3RlOiBUaGlzIGlzIGNvbW1lbnRlZCBvdXQgdG8gYXZvaWQgY29uZmxpY3RzIHdpdGggbm9kZV9tb2R1bGVzIHZlcnNpb24KLy8gZGVjbGFyZSBnbG9iYWwgewovLyAgIGludGVyZmFjZSBXaW5kb3cgewovLyAgICAgUGx1Z2luQVBJOiBQbHVnaW5BUEk7Ci8vICAgfQovLwovLyAgIC8vIEZvciBwbHVnaW4gZGV2ZWxvcG1lbnQgd2l0aG91dCB3aW5kb3cgcmVmZXJlbmNlCi8vICAgY29uc3QgUGx1Z2luQVBJOiBQbHVnaW5BUEk7Ci8vIH0K
+// Types for Super Productivity Plugin API
+// This package provides TypeScript types for developing plugins
+
+export interface PluginMenuEntryCfg {
+  pluginId: string;
+  label: string;
+  icon?: string;
+  onClick: () => void;
+}
+
+export enum PluginHooks {
+  TASK_CREATED = 'taskCreated',
+  TASK_COMPLETE = 'taskComplete',
+  TASK_UPDATE = 'taskUpdate',
+  TASK_DELETE = 'taskDelete',
+  TASK_SCHEDULE_CHANGE = 'taskScheduleChange',
+  CURRENT_TASK_CHANGE = 'currentTaskChange',
+  FINISH_DAY = 'finishDay',
+  LANGUAGE_CHANGE = 'languageChange',
+  PERSISTED_DATA_UPDATE = 'persistedDataUpdate',
+  ACTION = 'action',
+  ANY_TASK_UPDATE = 'anyTaskUpdate',
+  PROJECT_LIST_UPDATE = 'projectListUpdate',
+}
+
+export type Hooks = PluginHooks;
+
+export interface PluginBaseCfg {
+  theme: 'light' | 'dark';
+  appVersion: string;
+  platform: 'web' | 'desktop' | 'android' | 'ios';
+  isDev: boolean;
+  lang?: {
+    code: string;
+    [key: string]: unknown;
+  };
+}
+
+export interface DialogButtonCfg {
+  label: string;
+  icon?: string;
+  onClick: () => void | Promise<void>;
+  color?: 'primary' | 'warn';
+}
+
+export interface DialogCfg {
+  htmlContent?: string;
+  buttons?: DialogButtonCfg[];
+}
+
+export interface SnackCfg {
+  msg: string;
+  type?: 'SUCCESS' | 'ERROR' | 'WARNING' | 'INFO';
+  ico?: string;
+}
+
+export type SnackCfgLimited = SnackCfg;
+
+export interface NotifyCfg {
+  title: string;
+  body: string;
+}
+
+export interface PluginNodeScriptConfig {
+  allowedPaths?: string[]; // Specific paths the script can access
+  timeout?: number; // Default timeout in milliseconds for scripts
+  memoryLimit?: string; // Default memory limit (e.g., '128MB', '256MB')
+}
+
+export interface PluginNodeScriptRequest {
+  script: string;
+  timeout?: number;
+  args?: unknown[];
+}
+
+export interface PluginNodeScriptError {
+  code:
+    | 'TIMEOUT'
+    | 'MEMORY_LIMIT'
+    | 'SCRIPT_ERROR'
+    | 'PERMISSION_DENIED'
+    | 'INVALID_SCRIPT'
+    | 'NO_CONSENT';
+  message: string;
+  details?: {
+    line?: number;
+    column?: number;
+    scriptSnippet?: string;
+  };
+}
+
+export interface PluginNodeScriptResult {
+  success: boolean;
+  result?: unknown;
+  error?: string | PluginNodeScriptError;
+  executionTime?: number;
+  resourceUsage?: {
+    peakMemoryMB?: number;
+    cpuTime?: number;
+  };
+}
+
+export interface PluginManifest {
+  name: string;
+  id: string;
+  manifestVersion: number;
+  version: string;
+  minSupVersion: string;
+  description?: string;
+  hooks: Hooks[];
+  permissions: string[];
+  iFrame?: boolean;
+  isSkipMenuEntry?: boolean;
+  type?: 'standard';
+  assets?: string[];
+  icon?: string; // Path to SVG icon file relative to plugin root
+  nodeScriptConfig?: PluginNodeScriptConfig;
+  sidePanel?: boolean; // If true, plugin loads in right panel instead of route
+  jsonSchemaCfg?: string; // Path to JSON schema file for plugin configuration relative to plugin root
+}
+
+// Hook payload types
+export interface TaskCreatedPayload {
+  taskId: string;
+  task: Task;
+}
+
+export interface TaskCompletePayload {
+  taskId: string;
+  task: Task;
+}
+
+export interface TaskUpdatePayload {
+  taskId: string;
+  task: Task;
+  changes: Partial<Task>;
+}
+
+export interface TaskDeletePayload {
+  taskId: string;
+}
+
+export interface TaskScheduleChangePayload {
+  task: Task;
+  action: string;
+}
+
+export interface CurrentTaskChangePayload {
+  current: Task | null;
+  previous: Task | null;
+}
+
+export interface FinishDayPayload {
+  date: string;
+}
+
+export interface LanguageChangePayload {
+  code: string;
+
+  [key: string]: unknown;
+}
+
+export interface PersistedDataUpdatePayload {
+  data: string;
+}
+
+export interface ActionPayload {
+  action: string;
+  payload?: unknown;
+}
+
+export interface AnyTaskUpdatePayload {
+  action: string;
+  taskId?: string;
+  task?: Task;
+  changes?: Partial<Task>;
+}
+
+export interface ProjectListUpdatePayload {
+  action: string;
+  projectId?: string;
+  project?: Project;
+  changes?: Partial<Project>;
+}
+
+// Map hook types to their payload types
+export interface HookPayloadMap {
+  [PluginHooks.TASK_CREATED]: TaskCreatedPayload;
+  [PluginHooks.TASK_COMPLETE]: TaskCompletePayload;
+  [PluginHooks.TASK_UPDATE]: TaskUpdatePayload;
+  [PluginHooks.TASK_DELETE]: TaskDeletePayload;
+  [PluginHooks.TASK_SCHEDULE_CHANGE]: TaskScheduleChangePayload;
+  [PluginHooks.CURRENT_TASK_CHANGE]: CurrentTaskChangePayload;
+  [PluginHooks.FINISH_DAY]: FinishDayPayload;
+  [PluginHooks.LANGUAGE_CHANGE]: LanguageChangePayload;
+  [PluginHooks.PERSISTED_DATA_UPDATE]: PersistedDataUpdatePayload;
+  [PluginHooks.ACTION]: ActionPayload;
+  [PluginHooks.ANY_TASK_UPDATE]: AnyTaskUpdatePayload;
+  [PluginHooks.PROJECT_LIST_UPDATE]: ProjectListUpdatePayload;
+}
+
+// Generic hook handler with typed payload
+export type PluginHookHandler<T extends Hooks = Hooks> = (
+  payload: T extends keyof HookPayloadMap ? HookPayloadMap[T] : unknown,
+) => void | Promise<void>;
+
+// Core data types - Single source of truth for both plugins and app
+export interface Task {
+  id: string;
+  title: string;
+  notes?: string;
+  timeEstimate: number;
+  timeSpent: number;
+  isDone: boolean;
+  projectId: string | null;
+  tagIds: string[];
+  parentId?: string | null;
+  created: number;
+  updated?: number;
+  subTaskIds: string[];
+
+  // Additional fields for internal use (plugins can read but shouldn't modify)
+  timeSpentOnDay?: { [key: string]: number };
+  doneOn?: number | null;
+  attachments?: any[];
+  reminderId?: string | null;
+  repeatCfgId?: string | null;
+
+  // Issue tracking fields (optional)
+  issueId?: string | null;
+  issueProviderId?: string | null;
+  issueType?: any | null; // IssueProviderKey in app
+  issueWasUpdated?: boolean;
+  issueLastUpdated?: number | null;
+  issueAttachmentNr?: number;
+  issuePoints?: number | null;
+
+  // UI state (internal)
+  _hideSubTasksMode?: number;
+}
+
+export interface ProjectFolder {
+  id: string;
+  title: string;
+  icon?: string | null;
+  parentId?: string | null;
+  isExpanded?: boolean;
+  created: number;
+  updated?: number;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  theme: {
+    primary?: string;
+    isAutoContrast?: boolean;
+    [key: string]: unknown;
+  };
+  isArchived?: boolean;
+  created?: number;
+  updated?: number;
+  taskIds: string[];
+  backlogTaskIds: string[];
+  noteIds: string[];
+  isEnableBacklog?: boolean;
+  isHiddenFromMenu?: boolean;
+  folderId?: string | null;
+
+  // Advanced config (internal) - must be any to match WorkContextCommon
+  advancedCfg: unknown;
+  icon?: string | null;
+}
+
+export interface Tag {
+  id: string;
+  title: string;
+  color?: string | null;
+  created: number;
+  updated?: number;
+  taskIds: string[];
+  icon?: string | null;
+
+  // Advanced config (internal) - must be any to match WorkContextCommon
+  theme: unknown;
+  advancedCfg: unknown;
+}
+
+// Legacy aliases for backward compatibility
+/** @deprecated Use Task instead */
+export type TaskData = Task;
+/** @deprecated Use Task instead */
+export type TaskCopy = Task;
+
+/** @deprecated Use Project instead */
+export type ProjectData = Project;
+/** @deprecated Use Project instead */
+export type ProjectCopy = Project;
+
+/** @deprecated Use Tag instead */
+export type TagData = Tag;
+/** @deprecated Use Tag instead */
+export type TagCopy = Tag;
+
+export interface PluginHeaderBtnCfg {
+  pluginId: string;
+  label: string;
+  icon?: string;
+  onClick: () => void;
+  color?: 'primary' | 'accent' | 'warn';
+}
+
+export interface PluginSidePanelBtnCfg {
+  pluginId: string;
+  label: string;
+  icon?: string;
+  onClick: () => void;
+}
+
+export interface PluginAPI {
+  cfg: PluginBaseCfg;
+
+  registerHook<T extends Hooks>(hook: T, fn: PluginHookHandler<T>): void;
+
+  registerHeaderButton(headerBtnCfg: Omit<PluginHeaderBtnCfg, 'pluginId'>): void;
+
+  registerMenuEntry(menuEntryCfg: Omit<PluginMenuEntryCfg, 'pluginId'>): void;
+
+  registerShortcut(
+    shortcutCfg: Omit<PluginShortcutCfg, 'pluginId'> & { id?: string },
+  ): void;
+
+  registerSidePanelButton(sidePanelBtnCfg: Omit<PluginSidePanelBtnCfg, 'pluginId'>): void;
+
+  // cross-process communication
+  onMessage?(handler: (message: unknown) => Promise<unknown> | unknown): void;
+
+  // ui bridge
+  showSnack(snackCfg: SnackCfg): void;
+
+  notify(notifyCfg: NotifyCfg): Promise<void>;
+
+  showIndexHtmlAsView(): void;
+
+  openDialog(dialogCfg: DialogCfg): Promise<void>;
+
+  // tasks
+  getTasks(): Promise<Task[]>;
+
+  getArchivedTasks(): Promise<Task[]>;
+
+  getCurrentContextTasks(): Promise<Task[]>;
+
+  updateTask(taskId: string, updates: Partial<Task>): Promise<void>;
+
+  addTask(taskData: PluginCreateTaskData): Promise<string>;
+
+  deleteTask(taskId: string): Promise<void>;
+
+  moveTaskToProject(taskId: string, targetProjectId: string): Promise<void>;
+
+  batchUpdateForProject(request: BatchUpdateRequest): Promise<BatchUpdateResult>;
+
+  // projects
+  getAllProjects(): Promise<Project[]>;
+
+  addProject(projectData: Partial<Project>): Promise<string>;
+
+  updateProject(projectId: string, updates: Partial<Project>): Promise<void>;
+
+  // tags
+  getAllTags(): Promise<Tag[]>;
+
+  addTag(tagData: Partial<Tag>): Promise<string>;
+
+  updateTag(tagId: string, updates: Partial<Tag>): Promise<void>;
+
+  // task ordering
+  reorderTasks(
+    taskIds: string[],
+    contextId: string,
+    contextType: 'project' | 'task',
+  ): Promise<void>;
+
+  // logging
+  log: {
+    critical: (...args: unknown[]) => void;
+    err: (...args: unknown[]) => void;
+    log: (...args: unknown[]) => void;
+    info: (...args: unknown[]) => void;
+    verbose: (...args: unknown[]) => void;
+    debug: (...args: unknown[]) => void;
+    error: (...args: unknown[]) => void;
+    normal: (...args: unknown[]) => void;
+    warn: (...args: unknown[]) => void;
+  };
+
+  // persistence
+  persistDataSynced(dataStr: string): Promise<void>;
+
+  loadSyncedData(): Promise<string | null>;
+
+  getConfig<T = Record<string, unknown>>(): Promise<T | null>;
+
+  // download file
+  downloadFile(filename: string, data: string): Promise<void>;
+
+  // node execution (only available in Electron with nodeExecution permission)
+  executeNodeScript?(request: PluginNodeScriptRequest): Promise<PluginNodeScriptResult>;
+
+  // action execution - dispatch NgRx actions (limited to allowed subset)
+  dispatchAction(action: { type: string; [key: string]: unknown }): void;
+
+  // window state
+  isWindowFocused(): boolean;
+
+  onWindowFocusChange?(handler: (isFocused: boolean) => void): void;
+
+  // simple counters
+  setCounter(id: string, value: number): Promise<void>;
+
+  getCounter(id: string): Promise<number | null>;
+
+  incrementCounter(id: string, incrementBy?: number): Promise<number>;
+
+  decrementCounter(id: string, decrementBy?: number): Promise<number>;
+
+  deleteCounter(id: string): Promise<void>;
+
+  getAllCounters(): Promise<{ [id: string]: number }>;
+}
+
+export interface PluginInstance {
+  manifest: PluginManifest;
+  loaded: boolean;
+  isEnabled: boolean;
+  error?: string;
+}
+
+export interface PluginHookHandlerRegistration<T extends Hooks = Hooks> {
+  pluginId: string;
+  hook: T;
+  handler: PluginHookHandler<T>;
+}
+
+export interface PluginCreateTaskData {
+  title: string;
+  projectId?: string | null;
+  tagIds?: string[];
+  notes?: string;
+  timeEstimate?: number;
+  parentId?: string | null;
+  isDone?: boolean;
+}
+
+export interface PluginShortcutCfg {
+  pluginId: string;
+  id: string;
+  label: string;
+  onExec: () => void;
+}
+
+export interface BatchTaskCreate {
+  type: 'create';
+  tempId: string; // Temporary ID to reference in other operations
+  data: {
+    title: string;
+    notes?: string;
+    isDone?: boolean;
+    parentId?: string | null; // Can reference tempId or existing task ID
+    timeEstimate?: number;
+  };
+}
+
+export interface BatchTaskUpdate {
+  type: 'update';
+  taskId: string; // Existing task ID
+  updates: {
+    title?: string;
+    notes?: string;
+    isDone?: boolean;
+    parentId?: string | null;
+    timeEstimate?: number;
+    subTaskIds?: string[];
+  };
+}
+
+export interface BatchTaskDelete {
+  type: 'delete';
+  taskId: string; // Existing task ID
+}
+
+export interface BatchTaskReorder {
+  type: 'reorder';
+  taskIds: string[]; // Can include tempIds for newly created tasks
+}
+
+export type BatchOperation =
+  | BatchTaskCreate
+  | BatchTaskUpdate
+  | BatchTaskDelete
+  | BatchTaskReorder;
+
+export interface BatchUpdateRequest {
+  projectId: string;
+  operations: BatchOperation[];
+}
+
+export interface BatchUpdateResult {
+  success: boolean;
+  // Map temporary IDs to actual created task IDs
+  createdTaskIds: { [tempId: string]: string };
+  errors?: BatchUpdateError[];
+}
+
+export interface BatchUpdateError {
+  operationIndex: number;
+  type:
+    | 'VALIDATION_ERROR'
+    | 'CIRCULAR_DEPENDENCY'
+    | 'TASK_NOT_FOUND'
+    | 'OUTSIDE_PROJECT'
+    | 'UNKNOWN';
+  message: string;
+}
+
+/**
+ * Enum for plugin iframe message types - used for communication between
+ * plugin iframes and the host application
+ */
+export enum PluginIframeMessageType {
+  // API communication
+  API_CALL = 'PLUGIN_API_CALL',
+  API_RESPONSE = 'PLUGIN_API_RESPONSE',
+  API_ERROR = 'PLUGIN_API_ERROR',
+
+  // Hook events
+  HOOK_EVENT = 'PLUGIN_HOOK_EVENT',
+
+  // Dialog interaction
+  DIALOG_BUTTON_CLICK = 'PLUGIN_DIALOG_BUTTON_CLICK',
+  DIALOG_BUTTON_RESPONSE = 'PLUGIN_DIALOG_BUTTON_RESPONSE',
+
+  // Message forwarding
+  MESSAGE = 'PLUGIN_MESSAGE',
+  MESSAGE_RESPONSE = 'PLUGIN_MESSAGE_RESPONSE',
+  MESSAGE_ERROR = 'PLUGIN_MESSAGE_ERROR',
+
+  // Plugin lifecycle
+  READY = 'plugin-ready',
+}
+
+// Global PluginAPI interface for runtime use
+// Note: This is commented out to avoid conflicts with node_modules version
+// declare global {
+//   interface Window {
+//     PluginAPI: PluginAPI;
+//   }
+//
+//   // For plugin development without window reference
+//   const PluginAPI: PluginAPI;
+// }

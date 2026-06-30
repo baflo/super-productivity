@@ -1,1 +1,73 @@
-ewogICIkc2NoZW1hIjogImh0dHA6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQtMDcvc2NoZW1hIyIsCiAgInR5cGUiOiAib2JqZWN0IiwKICAicHJvcGVydGllcyI6IHsKICAgICJydWxlcyI6IHsKICAgICAgInR5cGUiOiAiYXJyYXkiLAogICAgICAidGl0bGUiOiAiV29ya2Zsb3cgUnVsZXMiLAogICAgICAiZGVzY3JpcHRpb24iOiAiRWFjaCBydWxlIHJ1bnMgaXRzIGFjdGlvbnMgd2hlbiBpdHMgdHJpZ2dlciBmaXJlcyBhbmQgYWxsIGNvbmRpdGlvbnMgbWF0Y2guIExlYXZlIGVtcHR5IHRvIHVzZSB0aGUgYnVpbHQtaW4gZGVmYXVsdHMgKEppcmEgaW1wb3J0cyBub3Qgc2NoZWR1bGVkIHRvIFRvZGF5LCBwcm9qZWN0IHBpY2tlciBvbiBpbXBvcnQgaW4gYSBwcm9qZWN0KS4iLAogICAgICAiaXRlbXMiOiB7CiAgICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgICAicHJvcGVydGllcyI6IHsKICAgICAgICAgICJuYW1lIjogewogICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciLAogICAgICAgICAgICAidGl0bGUiOiAiTmFtZSIKICAgICAgICAgIH0sCiAgICAgICAgICAiZW5hYmxlZCI6IHsKICAgICAgICAgICAgInR5cGUiOiAiYm9vbGVhbiIsCiAgICAgICAgICAgICJ0aXRsZSI6ICJFbmFibGVkIiwKICAgICAgICAgICAgImRlZmF1bHQiOiB0cnVlCiAgICAgICAgICB9LAogICAgICAgICAgInRyaWdnZXIiOiB7CiAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIsCiAgICAgICAgICAgICJ0aXRsZSI6ICJUcmlnZ2VyIiwKICAgICAgICAgICAgImVudW0iOiBbInRhc2tDcmVhdGVkIl0sCiAgICAgICAgICAgICJkZWZhdWx0IjogInRhc2tDcmVhdGVkIgogICAgICAgICAgfSwKICAgICAgICAgICJjb25kaXRpb25zIjogewogICAgICAgICAgICAidHlwZSI6ICJhcnJheSIsCiAgICAgICAgICAgICJ0aXRsZSI6ICJDb25kaXRpb25zIChhbGwgbXVzdCBtYXRjaCkiLAogICAgICAgICAgICAiaXRlbXMiOiB7CiAgICAgICAgICAgICAgInR5cGUiOiAib2JqZWN0IiwKICAgICAgICAgICAgICAicHJvcGVydGllcyI6IHsKICAgICAgICAgICAgICAgICJ0eXBlIjogewogICAgICAgICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciLAogICAgICAgICAgICAgICAgICAidGl0bGUiOiAiQ29uZGl0aW9uIiwKICAgICAgICAgICAgICAgICAgImVudW0iOiBbImlzRnJvbVByb3ZpZGVyIiwgImhhc1Byb2plY3QiLCAidGl0bGVDb250YWlucyIsICJoYXNUYWciXQogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgICJ2YWx1ZSI6IHsKICAgICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICAgICAgICAgInRpdGxlIjogIlZhbHVlIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgICAgfSwKICAgICAgICAgICJhY3Rpb25zIjogewogICAgICAgICAgICAidHlwZSI6ICJhcnJheSIsCiAgICAgICAgICAgICJ0aXRsZSI6ICJBY3Rpb25zIChydW4gaW4gb3JkZXIpIiwKICAgICAgICAgICAgIml0ZW1zIjogewogICAgICAgICAgICAgICJ0eXBlIjogIm9iamVjdCIsCiAgICAgICAgICAgICAgInByb3BlcnRpZXMiOiB7CiAgICAgICAgICAgICAgICAidHlwZSI6IHsKICAgICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwKICAgICAgICAgICAgICAgICAgInRpdGxlIjogIkFjdGlvbiIsCiAgICAgICAgICAgICAgICAgICJlbnVtIjogWwogICAgICAgICAgICAgICAgICAgICJ1bnNjaGVkdWxlIiwKICAgICAgICAgICAgICAgICAgICAic2NoZWR1bGVUb2RheSIsCiAgICAgICAgICAgICAgICAgICAgImFkZFRhZyIsCiAgICAgICAgICAgICAgICAgICAgInNob3dTbmFjayIsCiAgICAgICAgICAgICAgICAgICAgIm1vdmVUb1Byb2plY3RWaWFEaWFsb2ciCiAgICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAidmFsdWUiOiB7CiAgICAgICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIsCiAgICAgICAgICAgICAgICAgICJ0aXRsZSI6ICJWYWx1ZSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgIH0KICAgICAgICB9CiAgICAgIH0KICAgIH0KICB9Cn0K
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "rules": {
+      "type": "array",
+      "title": "Workflow Rules",
+      "description": "Each rule runs its actions when its trigger fires and all conditions match. Leave empty to use the built-in defaults (Jira imports not scheduled to Today, project picker on import in a project).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": true
+          },
+          "trigger": {
+            "type": "string",
+            "title": "Trigger",
+            "enum": ["taskCreated"],
+            "default": "taskCreated"
+          },
+          "conditions": {
+            "type": "array",
+            "title": "Conditions (all must match)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "Condition",
+                  "enum": ["isFromProvider", "hasProject", "titleContains", "hasTag"]
+                },
+                "value": {
+                  "type": "string",
+                  "title": "Value"
+                }
+              }
+            }
+          },
+          "actions": {
+            "type": "array",
+            "title": "Actions (run in order)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "Action",
+                  "enum": [
+                    "unschedule",
+                    "scheduleToday",
+                    "addTag",
+                    "showSnack",
+                    "moveToProjectViaDialog"
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "title": "Value"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
