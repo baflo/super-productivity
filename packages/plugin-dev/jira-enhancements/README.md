@@ -15,9 +15,29 @@ If you don't configure any rules, two defaults are active:
 
 ## Configuration
 
-Open _Settings → Plugins → Jira Enhancements → Configure_. The form lets you add
-rules; each rule has a trigger, a list of conditions, and a list of actions.
-Configuring any rule replaces the defaults.
+Open _Settings → Plugins → Jira Enhancements → Configure_:
+
+- **Don't schedule imports to Today** – toggles rule 1 (default on)
+- **Project picker on import in a project** – toggles rule 2 (default on)
+- **Issue provider key** – which provider the rules apply to (default `JIRA`;
+  also works for `GITHUB`, `GITLAB`, `REDMINE`, …)
+- **Custom rules (advanced)** – an optional JSON array of extra rules (see below)
+
+> The config form only supports flat fields, so the two built-in rules are
+> toggles. Anything more advanced goes through the `customRulesJson` field.
+
+### Custom rules
+
+```json
+[
+  {
+    "name": "Tag urgent bugs",
+    "trigger": "taskCreated",
+    "conditions": [{ "type": "titleContains", "value": "bug" }],
+    "actions": [{ "type": "addTag", "value": "urgent" }]
+  }
+]
+```
 
 ## Extending
 
@@ -28,9 +48,9 @@ Everything is driven by three registries in `plugin.js`:
 - `CONDITIONS` – `{ id: { name, check(ctx, task, value) } }`
 - `ACTIONS` – `{ id: { name, execute(ctx, task, value) } }`
 
-To add a capability: add an entry to the matching registry, then add its `id` to
-the corresponding `enum` in `config-schema.json` so it appears in the settings
-form. `ctx.cache` provides lazily-loaded, per-event `getProjects()` / `getTags()`.
+To add a capability, add an entry to the matching registry; it's then usable from
+`customRulesJson` immediately. `ctx.cache` provides lazily-loaded, per-event
+`getProjects()` / `getTags()`.
 
 ## Built-in primitives
 

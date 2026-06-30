@@ -2,72 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "rules": {
-      "type": "array",
-      "title": "Workflow Rules",
-      "description": "Each rule runs its actions when its trigger fires and all conditions match. Leave empty to use the built-in defaults (Jira imports not scheduled to Today, project picker on import in a project).",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "enabled": {
-            "type": "boolean",
-            "title": "Enabled",
-            "default": true
-          },
-          "trigger": {
-            "type": "string",
-            "title": "Trigger",
-            "enum": ["taskCreated"],
-            "default": "taskCreated"
-          },
-          "conditions": {
-            "type": "array",
-            "title": "Conditions (all must match)",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "title": "Condition",
-                  "enum": ["isFromProvider", "hasProject", "titleContains", "hasTag"]
-                },
-                "value": {
-                  "type": "string",
-                  "title": "Value"
-                }
-              }
-            }
-          },
-          "actions": {
-            "type": "array",
-            "title": "Actions (run in order)",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "title": "Action",
-                  "enum": [
-                    "unschedule",
-                    "scheduleToday",
-                    "addTag",
-                    "showSnack",
-                    "moveToProjectViaDialog"
-                  ]
-                },
-                "value": {
-                  "type": "string",
-                  "title": "Value"
-                }
-              }
-            }
-          }
-        }
-      }
+    "ruleNoToday": {
+      "type": "boolean",
+      "title": "Don't schedule imports to Today",
+      "description": "Clear the auto-set due date on imported tasks so they don't land in Today.",
+      "default": true
+    },
+    "ruleProjectPicker": {
+      "type": "boolean",
+      "title": "Project picker on import in a project",
+      "description": "When a task is imported while a project is open, offer a dialog to move it to another project.",
+      "default": true
+    },
+    "providerKey": {
+      "type": "string",
+      "title": "Issue provider key",
+      "description": "Which provider the rules apply to (e.g. JIRA, GITHUB, GITLAB, REDMINE). Leave as JIRA for Jira.",
+      "default": "JIRA"
+    },
+    "customRulesJson": {
+      "type": "string",
+      "title": "Custom rules (advanced)",
+      "description": "Optional JSON array of extra rules: [{\"name\":\"…\",\"trigger\":\"taskCreated\",\"conditions\":[{\"type\":\"titleContains\",\"value\":\"bug\"}],\"actions\":[{\"type\":\"addTag\",\"value\":\"urgent\"}]}]. Conditions: isFromProvider, hasProject, titleContains, hasTag. Actions: unschedule, scheduleToday, addTag, showSnack, moveToProjectViaDialog.",
+      "default": ""
     }
   }
 }

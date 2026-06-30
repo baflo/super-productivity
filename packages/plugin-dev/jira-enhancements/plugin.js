@@ -3,13 +3,13 @@
 // A "rule" is: trigger → conditions (all must match) → actions (run in order).
 // The three registries below (TRIGGERS / CONDITIONS / ACTIONS) make the engine
 // extensible: to add a capability, drop a new entry into the matching registry
-// and reference its id from a rule (and add the id to config-schema.json so it
-// shows up in the settings form).
+// and reference its id from a rule.
 //
-// Ships with two default rules (see DEFAULT_RULES) so it works out of the box:
-//   1. Don't auto-schedule imported Jira tasks to "Today".
-//   2. On manual Jira import inside a project view, offer a project-picker dialog.
-// Both are fully editable via the plugin config (Settings → Plugins → Configure).
+// Two rules are active out of the box (toggled via the plugin config):
+//   1. Don't auto-schedule imported tasks to "Today".
+//   2. On import inside a project view, offer a project-picker dialog.
+// Rules are assembled in buildRules() from the (flat) plugin config; advanced
+// users can add arbitrary extra rules via the customRulesJson config field.
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
@@ -184,24 +184,50 @@ const ACTIONS = {
   },
 };
 
-// ── default rules (used when no custom rules are configured) ────────────────────
+// ── rule assembly from config ───────────────────────────────────────────────────
+// The plugin config form only supports flat fields, so the two built-in rules are
+// driven by booleans (+ a provider key). Advanced users can add arbitrary extra
+// rules as a JSON array via `customRulesJson`, referencing the registries above.
 
-const DEFAULT_RULES = [
-  {
-    name: "Don't schedule Jira imports to Today",
-    enabled: true,
-    trigger: 'taskCreated',
-    conditions: [{ type: 'isFromProvider', value: 'JIRA' }],
-    actions: [{ type: 'unschedule' }],
-  },
-  {
-    name: 'Project picker on Jira import in a project',
-    enabled: true,
-    trigger: 'taskCreated',
-    conditions: [{ type: 'isFromProvider', value: 'JIRA' }, { type: 'hasProject' }],
-    actions: [{ type: 'moveToProjectViaDialog' }],
-  },
-];
+function buildRules(cfg) {
+  const providerKey = (cfg.providerKey || 'JIRA').trim() || 'JIRA';
+  const rules = [];
+
+  if (cfg.ruleNoToday !== false) {
+    rules.push({
+      name: "Don't schedule imports to Today",
+      enabled: true,
+      trigger: 'taskCreated',
+      conditions: [{ type: 'isFromProvider', value: providerKey }],
+      actions: [{ type: 'unschedule' }],
+    });
+  }
+
+  if (cfg.ruleProjectPicker !== false) {
+    rules.push({
+      name: 'Project picker on import in a project',
+      enabled: true,
+      trigger: 'taskCreated',
+      conditions: [
+        { type: 'isFromProvider', value: providerKey },
+        { type: 'hasProject' },
+      ],
+      actions: [{ type: 'moveToProjectViaDialog' }],
+    });
+  }
+
+  if (cfg.customRulesJson && cfg.customRulesJson.trim()) {
+    try {
+      const extra = JSON.parse(cfg.customRulesJson);
+      if (Array.isArray(extra)) rules.push(...extra);
+      else PluginAPI.log.warn('[JiraEnh] customRulesJson must be a JSON array');
+    } catch (e) {
+      PluginAPI.log.error(`[JiraEnh] Invalid customRulesJson: ${e}`);
+    }
+  }
+
+  return rules;
+}
 
 // ── engine ──────────────────────────────────────────────────────────────────────
 
@@ -239,7 +265,7 @@ async function runRule(rule, event) {
 
 (async () => {
   const cfg = (await PluginAPI.getConfig()) || {};
-  const rules = Array.isArray(cfg.rules) && cfg.rules.length ? cfg.rules : DEFAULT_RULES;
+  const rules = buildRules(cfg);
 
   const activeRules = rules.filter((r) => r && r.enabled !== false);
   if (!activeRules.length) return;
