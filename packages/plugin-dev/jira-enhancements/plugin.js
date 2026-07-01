@@ -1,15 +1,15 @@
-// Jira Enhancements – a small, self-contained workflow engine.
+// Jira Enhancements – a small, self-contained workflow engine (background).
 //
 // A "rule" is: trigger → conditions (all must match) → actions (run in order).
-// The three registries below (TRIGGERS / CONDITIONS / ACTIONS) make the engine
-// extensible: to add a capability, drop a new entry into the matching registry
-// and reference its id from a rule.
+// Rules are managed in the plugin UI (index.html) and stored via
+// persistDataSynced. This background script reads them fresh on every event so
+// edits in the UI take effect immediately without a reload.
 //
-// Two rules are active out of the box (toggled via the plugin config):
-//   1. Don't auto-schedule imported tasks to "Today".
-//   2. On import inside a project view, offer a project-picker dialog.
-// Rules are assembled in buildRules() from the (flat) plugin config; advanced
-// users can add arbitrary extra rules via the customRulesJson config field.
+// The three registries below (TRIGGERS / CONDITIONS / ACTIONS) are the engine's
+// vocabulary. To add a capability, add an entry here and the matching option in
+// index.html's dropdowns (see SHARED_DEFS there).
+
+const STORE_VERSION = 1;
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
@@ -30,7 +30,30 @@ function todayStr() {
   return `${y}-${m}-${day}`;
 }
 
-// Lazily-loaded, per-event cache for projects/tags so a rule batch only fetches once.
+// The two built-in rules. Seeded DISABLED so nothing changes until the user
+// opts in; both are editable and deletable in the UI.
+function defaultRules() {
+  return [
+    {
+      id: 'default-no-today',
+      name: "Don't schedule imports to Today",
+      enabled: false,
+      trigger: 'taskCreated',
+      conditions: [{ type: 'isFromProvider', value: 'JIRA' }],
+      actions: [{ type: 'unschedule' }],
+    },
+    {
+      id: 'default-project-picker',
+      name: 'Project picker on import in a project',
+      enabled: false,
+      trigger: 'taskCreated',
+      conditions: [{ type: 'isFromProvider', value: 'JIRA' }, { type: 'hasProject' }],
+      actions: [{ type: 'moveToProjectViaDialog' }],
+    },
+  ];
+}
+
+// Lazily-loaded, per-event cache for projects/tags so a rule batch fetches once.
 function createDataCache() {
   let projects = null;
   let tags = null;
@@ -152,7 +175,7 @@ const ACTIONS = {
       await PluginAPI.openDialog({
         htmlContent: `
           <p>
-            Jira task <strong>&ldquo;${escapeHtml(task.title)}&rdquo;</strong>
+            Task <strong>&ldquo;${escapeHtml(task.title)}&rdquo;</strong>
             was added to project <strong>${escapeHtml(currentProject.title)}</strong>.
           </p>
           ${
@@ -184,58 +207,30 @@ const ACTIONS = {
   },
 };
 
-// ── rule assembly from config ───────────────────────────────────────────────────
-// The plugin config form only supports flat fields, so the two built-in rules are
-// driven by booleans (+ a provider key). Advanced users can add arbitrary extra
-// rules as a JSON array via `customRulesJson`, referencing the registries above.
+// ── store ─────────────────────────────────────────────────────────────────────
 
-function buildRules(cfg) {
-  const providerKey = (cfg.providerKey || 'JIRA').trim() || 'JIRA';
-  const rules = [];
-
-  if (cfg.ruleNoToday !== false) {
-    rules.push({
-      name: "Don't schedule imports to Today",
-      enabled: true,
-      trigger: 'taskCreated',
-      conditions: [{ type: 'isFromProvider', value: providerKey }],
-      actions: [{ type: 'unschedule' }],
-    });
+async function loadRules() {
+  const raw = await PluginAPI.loadSyncedData();
+  if (!raw) {
+    // First run: seed the (disabled) defaults so they show up in the UI.
+    const data = { version: STORE_VERSION, rules: defaultRules() };
+    await PluginAPI.persistDataSynced(JSON.stringify(data));
+    return data.rules;
   }
-
-  if (cfg.ruleProjectPicker !== false) {
-    rules.push({
-      name: 'Project picker on import in a project',
-      enabled: true,
-      trigger: 'taskCreated',
-      conditions: [
-        { type: 'isFromProvider', value: providerKey },
-        { type: 'hasProject' },
-      ],
-      actions: [{ type: 'moveToProjectViaDialog' }],
-    });
+  try {
+    const data = JSON.parse(raw);
+    return Array.isArray(data.rules) ? data.rules : [];
+  } catch (e) {
+    PluginAPI.log.error(`[JiraEnh] Failed to parse stored rules: ${e}`);
+    return [];
   }
-
-  if (cfg.customRulesJson && cfg.customRulesJson.trim()) {
-    try {
-      const extra = JSON.parse(cfg.customRulesJson);
-      if (Array.isArray(extra)) rules.push(...extra);
-      else PluginAPI.log.warn('[JiraEnh] customRulesJson must be a JSON array');
-    } catch (e) {
-      PluginAPI.log.error(`[JiraEnh] Invalid customRulesJson: ${e}`);
-    }
-  }
-
-  return rules;
 }
 
 // ── engine ──────────────────────────────────────────────────────────────────────
 
-async function runRule(rule, event) {
+async function runRule(rule, task) {
   const cache = createDataCache();
   const ctx = { cache };
-  const task = event.task;
-  if (!task) return;
 
   // All conditions must pass (logical AND).
   for (const cond of rule.conditions || []) {
@@ -263,35 +258,30 @@ async function runRule(rule, event) {
   }
 }
 
-(async () => {
-  const cfg = (await PluginAPI.getConfig()) || {};
-  const rules = buildRules(cfg);
+async function handleEvent(hook, event) {
+  const task = event.task;
+  if (!task) return;
 
-  const activeRules = rules.filter((r) => r && r.enabled !== false);
-  if (!activeRules.length) return;
-
-  // Register one hook handler per distinct hook used by the active rules.
-  const hooks = new Set();
-  for (const rule of activeRules) {
+  const rules = await loadRules();
+  const normalized = { type: hook, task };
+  for (const rule of rules) {
+    if (rule.enabled === false) continue;
     const trigger = TRIGGERS[rule.trigger];
-    if (trigger) hooks.add(trigger.hook);
-    else PluginAPI.log.warn(`[JiraEnh] Unknown trigger "${rule.trigger}"`);
+    if (trigger && trigger.matches(normalized)) {
+      await runRule(rule, task);
+    }
   }
+}
 
+(async () => {
+  // Ensure defaults are seeded on first run (so the UI is never empty).
+  await loadRules();
+
+  // Register every hook the engine knows about (currently just taskCreated).
+  const hooks = new Set(Object.values(TRIGGERS).map((t) => t.hook));
   for (const hook of hooks) {
-    PluginAPI.registerHook(hook, async (event) => {
-      // Normalize: hook payloads pass { taskId, task }, engine expects event.type.
-      const normalized = { type: hook, task: event.task, taskId: event.taskId };
-      for (const rule of activeRules) {
-        const trigger = TRIGGERS[rule.trigger];
-        if (trigger && trigger.matches(normalized)) {
-          await runRule(rule, normalized);
-        }
-      }
-    });
+    PluginAPI.registerHook(hook, (event) => handleEvent(hook, event));
   }
 
-  PluginAPI.log.info(
-    `[JiraEnh] Workflow engine started with ${activeRules.length} rule(s)`,
-  );
+  PluginAPI.log.info('[JiraEnh] Workflow engine started');
 })();

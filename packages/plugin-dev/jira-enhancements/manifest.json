@@ -1,13 +1,11 @@
 {
   "id": "jira-enhancements",
   "name": "Jira Enhancements",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "manifestVersion": 1,
   "minSupVersion": "16.0.0",
-  "description": "A small workflow engine for Jira imports. Ships with rules to keep imports out of Today and to offer a project picker on manual import; fully editable via config.",
+  "description": "A small workflow engine for issue-provider imports. Manage named rules (trigger → conditions → actions) in a table: add, edit, enable/disable, delete.",
   "hooks": ["taskCreated"],
   "permissions": [],
-  "iFrame": false,
-  "isSkipMenuEntry": true,
-  "jsonSchemaCfg": "config-schema.json"
+  "iFrame": true
 }

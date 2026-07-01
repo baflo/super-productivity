@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Jira Enhancements – Rules</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        font-family: sans-serif;
+        color: var(--text-color, #333);
+        background: transparent;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .sub {
+        color: var(--text-color-muted, #888);
+        font-size: 13px;
+        margin: 0 0 16px;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        background: var(--c-primary, #1976d2);
+        color: #fff;
+      }
+      button.secondary {
+        background: var(--select-hover-bg, #e0e0e0);
+        color: var(--text-color, #333);
+      }
+      button.danger {
+        background: var(--color-danger, #d32f2f);
+        color: #fff;
+      }
+      button.icon {
+        background: transparent;
+        color: var(--text-color, #333);
+        padding: 4px 8px;
+        font-size: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid var(--divider-color, #ddd);
+        vertical-align: top;
+        font-size: 14px;
+      }
+      th {
+        color: var(--text-color-muted, #888);
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      .muted {
+        color: var(--text-color-muted, #888);
+        font-size: 12px;
+      }
+      .row-actions {
+        white-space: nowrap;
+        text-align: right;
+      }
+      .empty {
+        padding: 24px;
+        text-align: center;
+        color: var(--text-color-muted, #888);
+      }
+      /* editor */
+      #editor {
+        display: none;
+        margin-top: 16px;
+        padding: 16px;
+        border: 1px solid var(--divider-color, #ddd);
+        border-radius: 8px;
+        background: var(--card-bg, rgba(0, 0, 0, 0.03));
+      }
+      #editor.open {
+        display: block;
+      }
+      label {
+        display: block;
+        margin: 10px 0 4px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      input[type='text'],
+      select {
+        font: inherit;
+        padding: 6px 8px;
+        border: 1px solid var(--divider-color, #ccc);
+        border-radius: 4px;
+        background: var(--bg, #fff);
+        color: var(--text-color, #333);
+        box-sizing: border-box;
+      }
+      input[type='text'] {
+        width: 100%;
+      }
+      .cond-row,
+      .act-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 6px;
+        align-items: center;
+      }
+      .cond-row select,
+      .act-row select {
+        flex: 0 0 220px;
+      }
+      .cond-row input,
+      .act-row input {
+        flex: 1;
+      }
+      .editor-actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 8px;
+      }
+      .section-add {
+        margin-top: 4px;
+      }
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <div>
+        <h1>Workflow Rules</h1>
+        <p class="sub">
+          Each rule runs its actions when its trigger fires and all conditions match.
+        </p>
+      </div>
+      <button id="addBtn">+ Add rule</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 60px">On</th>
+          <th>Name</th>
+          <th>When</th>
+          <th>Then</th>
+          <th style="width: 90px"></th>
+        </tr>
+      </thead>
+      <tbody id="rulesBody"></tbody>
+    </table>
+    <div
+      id="emptyMsg"
+      class="empty"
+      style="display: none"
+    >
+      No rules yet. Click “Add rule” to create one.
+    </div>
+
+    <!-- Editor -->
+    <div id="editor">
+      <h2
+        id="editorTitle"
+        style="margin-top: 0; font-size: 16px"
+      >
+        Add rule
+      </h2>
+      <label for="ruleName">Name</label>
+      <input
+        type="text"
+        id="ruleName"
+        placeholder="e.g. Keep Jira imports out of Today"
+      />
+
+      <label for="ruleTrigger">Trigger</label>
+      <select id="ruleTrigger"></select>
+
+      <label>Conditions (all must match)</label>
+      <div id="conditions"></div>
+      <button
+        class="secondary section-add"
+        id="addCondBtn"
+        type="button"
+      >
+        + Add condition
+      </button>
+
+      <label>Actions (run in order)</label>
+      <div id="actions"></div>
+      <button
+        class="secondary section-add"
+        id="addActBtn"
+        type="button"
+      >
+        + Add action
+      </button>
+
+      <div class="editor-actions">
+        <button
+          id="saveBtn"
+          type="button"
+        >
+          Save
+        </button>
+        <button
+          class="secondary"
+          id="cancelBtn"
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Vocabulary — keep in sync with the registries in plugin.js.
+      const SHARED_DEFS = {
+        triggers: [{ id: 'taskCreated', label: 'Task created' }],
+        conditions: [
+          {
+            id: 'isFromProvider',
+            label: 'Imported from provider (value = key, e.g. JIRA)',
+          },
+          { id: 'hasProject', label: 'Is in a project (value = optional title)' },
+          { id: 'titleContains', label: 'Title contains (value = text)' },
+          { id: 'hasTag', label: 'Has tag (value = tag title)' },
+        ],
+        actions: [
+          { id: 'unschedule', label: 'Remove from Today / unschedule' },
+          { id: 'scheduleToday', label: 'Schedule for Today' },
+          { id: 'addTag', label: 'Add tag (value = tag title)' },
+          { id: 'showSnack', label: 'Show message (value = text)' },
+          { id: 'moveToProjectViaDialog', label: 'Offer project picker dialog' },
+        ],
+      };
+
+      const STORE_VERSION = 1;
+      let data = { version: STORE_VERSION, rules: [] };
+      let editingId = null;
+
+      const $ = (id) => document.getElementById(id);
+
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+      function genId() {
+        return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 7);
+      }
+      function defLabel(kind, id) {
+        const d = SHARED_DEFS[kind].find((x) => x.id === id);
+        return d ? d.id : id;
+      }
+
+      function defaultRules() {
+        return [
+          {
+            id: 'default-no-today',
+            name: "Don't schedule imports to Today",
+            enabled: false,
+            trigger: 'taskCreated',
+            conditions: [{ type: 'isFromProvider', value: 'JIRA' }],
+            actions: [{ type: 'unschedule' }],
+          },
+          {
+            id: 'default-project-picker',
+            name: 'Project picker on import in a project',
+            enabled: false,
+            trigger: 'taskCreated',
+            conditions: [
+              { type: 'isFromProvider', value: 'JIRA' },
+              { type: 'hasProject' },
+            ],
+            actions: [{ type: 'moveToProjectViaDialog' }],
+          },
+        ];
+      }
+
+      async function load() {
+        const raw = await PluginAPI.loadSyncedData();
+        if (!raw) {
+          data = { version: STORE_VERSION, rules: defaultRules() };
+          await save();
+          return;
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          data = {
+            version: parsed.version || STORE_VERSION,
+            rules: Array.isArray(parsed.rules) ? parsed.rules : [],
+          };
+        } catch (e) {
+          data = { version: STORE_VERSION, rules: [] };
+        }
+      }
+
+      async function save() {
+        await PluginAPI.persistDataSynced(JSON.stringify(data));
+      }
+
+      function summarize(items, kind) {
+        if (!items || !items.length) return '<span class="muted">—</span>';
+        return items
+          .map((it) => {
+            const v = it.value ? ': ' + esc(it.value) : '';
+            return esc(defLabel(kind, it.type)) + v;
+          })
+          .join('<br>');
+      }
+
+      function render() {
+        const body = $('rulesBody');
+        body.innerHTML = '';
+        if (!data.rules.length) {
+          $('emptyMsg').style.display = 'block';
+          return;
+        }
+        $('emptyMsg').style.display = 'none';
+
+        for (const rule of data.rules) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>
+              <input type="checkbox" ${rule.enabled ? 'checked' : ''}
+                     data-toggle="${esc(rule.id)}" />
+            </td>
+            <td>${esc(rule.name || '(unnamed)')}
+              <div class="muted">${esc(defLabel('triggers', rule.trigger))}</div>
+            </td>
+            <td>${summarize(rule.conditions, 'conditions')}</td>
+            <td>${summarize(rule.actions, 'actions')}</td>
+            <td class="row-actions">
+              <button class="icon" title="Edit" data-edit="${esc(rule.id)}">✎</button>
+              <button class="icon" title="Delete" data-del="${esc(rule.id)}">🗑</button>
+            </td>`;
+          body.appendChild(tr);
+        }
+      }
+
+      // ── editor ──────────────────────────────────────────────────────────────
+
+      function optionList(kind, selected) {
+        return SHARED_DEFS[kind]
+          .map(
+            (d) =>
+              `<option value="${d.id}" ${d.id === selected ? 'selected' : ''}>${esc(
+                d.label,
+              )}</option>`,
+          )
+          .join('');
+      }
+
+      function addCondRow(cond) {
+        const div = document.createElement('div');
+        div.className = 'cond-row';
+        div.innerHTML = `
+          <select>${optionList('conditions', cond && cond.type)}</select>
+          <input type="text" placeholder="value (optional)" value="${esc(
+            cond && cond.value,
+          )}" />
+          <button class="icon" type="button" title="Remove">✕</button>`;
+        div.querySelector('button').onclick = () => div.remove();
+        $('conditions').appendChild(div);
+      }
+
+      function addActRow(act) {
+        const div = document.createElement('div');
+        div.className = 'act-row';
+        div.innerHTML = `
+          <select>${optionList('actions', act && act.type)}</select>
+          <input type="text" placeholder="value (optional)" value="${esc(
+            act && act.value,
+          )}" />
+          <button class="icon" type="button" title="Remove">✕</button>`;
+        div.querySelector('button').onclick = () => div.remove();
+        $('actions').appendChild(div);
+      }
+
+      function openEditor(rule) {
+        editingId = rule ? rule.id : null;
+        $('editorTitle').textContent = rule ? 'Edit rule' : 'Add rule';
+        $('ruleName').value = rule ? rule.name || '' : '';
+        $('ruleTrigger').innerHTML = optionList(
+          'triggers',
+          rule ? rule.trigger : 'taskCreated',
+        );
+        $('conditions').innerHTML = '';
+        $('actions').innerHTML = '';
+        (rule && rule.conditions && rule.conditions.length
+          ? rule.conditions
+          : [null]
+        ).forEach(addCondRow);
+        (rule && rule.actions && rule.actions.length ? rule.actions : [null]).forEach(
+          addActRow,
+        );
+        $('editor').classList.add('open');
+        $('ruleName').focus();
+      }
+
+      function closeEditor() {
+        $('editor').classList.remove('open');
+        editingId = null;
+      }
+
+      function collectRows(containerId) {
+        const out = [];
+        for (const row of $(containerId).children) {
+          const type = row.querySelector('select').value;
+          const value = row.querySelector('input').value.trim();
+          if (type) out.push(value ? { type, value } : { type });
+        }
+        return out;
+      }
+
+      async function saveRule() {
+        const rule = {
+          id: editingId || genId(),
+          name: $('ruleName').value.trim() || '(unnamed)',
+          enabled: true,
+          trigger: $('ruleTrigger').value,
+          conditions: collectRows('conditions'),
+          actions: collectRows('actions'),
+        };
+        if (!rule.actions.length) {
+          PluginAPI.showSnack({ msg: 'Add at least one action', type: 'ERROR' });
+          return;
+        }
+        const idx = data.rules.findIndex((r) => r.id === rule.id);
+        if (idx >= 0) {
+          // preserve enabled state on edit
+          rule.enabled = data.rules[idx].enabled;
+          data.rules[idx] = rule;
+        } else {
+          data.rules.push(rule);
+        }
+        await save();
+        render();
+        closeEditor();
+      }
+
+      async function toggleRule(id, enabled) {
+        const rule = data.rules.find((r) => r.id === id);
+        if (rule) {
+          rule.enabled = enabled;
+          await save();
+        }
+      }
+
+      async function deleteRule(id) {
+        data.rules = data.rules.filter((r) => r.id !== id);
+        await save();
+        render();
+      }
+
+      // ── wire up ───────────────────────────────────────────────────────────────
+
+      function initEvents() {
+        $('addBtn').onclick = () => openEditor(null);
+        $('cancelBtn').onclick = closeEditor;
+        $('saveBtn').onclick = saveRule;
+        $('addCondBtn').onclick = () => addCondRow(null);
+        $('addActBtn').onclick = () => addActRow(null);
+
+        $('rulesBody').addEventListener('click', (e) => {
+          const editId = e.target.getAttribute('data-edit');
+          const delId = e.target.getAttribute('data-del');
+          if (editId) openEditor(data.rules.find((r) => r.id === editId));
+          else if (delId) deleteRule(delId);
+        });
+        $('rulesBody').addEventListener('change', (e) => {
+          const tId = e.target.getAttribute('data-toggle');
+          if (tId) toggleRule(tId, e.target.checked);
+        });
+      }
+
+      async function boot() {
+        // Wait until the injected PluginAPI is available.
+        let tries = 0;
+        while (typeof PluginAPI === 'undefined' && tries++ < 100) {
+          await new Promise((r) => setTimeout(r, 50));
+        }
+        if (typeof PluginAPI === 'undefined') return;
+        initEvents();
+        await load();
+        render();
+      }
+
+      document.addEventListener('DOMContentLoaded', boot);
+    </script>
+  </body>
+</html>
