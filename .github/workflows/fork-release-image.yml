@@ -1,11 +1,16 @@
-# Fork-only: when Super Productivity publishes a new release, builds the web
-# Docker image of that release with this fork's patches (the commits on the
-# fork's master that are not in upstream master) and publishes it to the fork's
-# GitHub Container Registry:
+# Fork-only: when Super Productivity publishes a new release, merges that
+# release into the fork's master, builds the web Docker image from the result
+# and publishes it to the fork's GitHub Container Registry:
 #   docker pull ghcr.io/<owner>/super-productivity:<version>   (or :latest)
+# Master is pushed only after the image was built, so a broken merge or build
+# leaves it as it was.
 # Runs daily, since upstream releases cannot trigger workflows in a fork.
 # Scheduled workflows only run from the default branch, hence this file lives
 # on master.
+# Pushing master needs the secret FORK_PUSH_TOKEN (fine-grained token for this
+# repo with Contents and Workflows: read and write): the built-in GITHUB_TOKEN
+# may not push commits that change files in .github/workflows, which upstream
+# releases usually do.
 name: Fork release image (GHCR)
 
 on:
@@ -22,7 +27,7 @@ on:
         default: false
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 env:
@@ -74,24 +79,20 @@ jobs:
         if: steps.check.outputs.build == 'true'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
         with:
+          ref: master
           fetch-depth: 0
+          # The build context keeps .git, so no token may be stored in it.
           persist-credentials: false
 
-      - name: Apply the fork's patches to the release
+      - name: Merge the release into master
         if: steps.check.outputs.build == 'true'
         env:
           TAG: ${{ steps.release.outputs.tag }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch --no-tags "https://github.com/$UPSTREAM.git" \
-            "+refs/heads/master:refs/remotes/upstream/master" \
-            "+refs/tags/$TAG:refs/tags/$TAG"
-          patches=$(git rev-list --reverse --no-merges origin/master --not upstream/master)
-          echo "Patches from master:"
-          git log --no-walk=unsorted --oneline $patches
-          git checkout --detach "$TAG"
-          git cherry-pick $patches
+          git fetch --no-tags "https://github.com/$UPSTREAM.git" "+refs/tags/$TAG:refs/tags/$TAG"
+          git merge --no-edit -m "Merge upstream release $TAG" "$TAG"
 
       # Same workaround as publish-to-hub-docker.yml for git+https npm installs.
       - name: Reconfigure git to use HTTP authentication
@@ -117,3 +118,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Push master
+        if: steps.check.outputs.build == 'true'
+        env:
+          TOKEN: ${{ secrets.FORK_PUSH_TOKEN || github.token }}
+        run: git push "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:master
