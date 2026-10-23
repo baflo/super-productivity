@@ -1,4 +1,11 @@
-import { Directive, HostListener, inject, input } from '@angular/core';
+import {
+  computed,
+  Directive,
+  HostBinding,
+  HostListener,
+  inject,
+  input,
+} from '@angular/core';
 import { IS_ELECTRON } from '../../../../app.constants';
 import { TaskAttachmentType } from '../task-attachment.model';
 import { SnackService } from '../../../../core/snack/snack.service';
@@ -10,6 +17,31 @@ export class TaskAttachmentLinkDirective {
 
   readonly type = input<TaskAttachmentType>();
   readonly href = input<string>();
+
+  /**
+   * Web link attachments navigate as a real link (`target="_blank"` from the
+   * template) instead of `window.open`: only a user-followed link is handed to
+   * an installed PWA that captures its URL, and middle/ctrl-click or "copy
+   * link" work as usual. Electron, images and local files keep the click
+   * handler.
+   */
+  readonly nativeHref = computed(() => {
+    const href = this.href();
+    if (IS_ELECTRON || this.type() !== 'LINK' || !href || this._isLocalFileUrl(href)) {
+      return null;
+    }
+    return this._normalizeUrl(href);
+  });
+
+  // The `href` input takes the host's `[href]` binding, so the element itself
+  // only gets an href through these attribute bindings.
+  @HostBinding('attr.href') get hrefAttr(): string | null {
+    return this.nativeHref();
+  }
+
+  @HostBinding('attr.rel') get relAttr(): string | null {
+    return this.nativeHref() ? 'noopener' : null;
+  }
 
   @HostListener('click', ['$event']) onClick(ev: Event): void {
     const href = this.href();
@@ -47,32 +79,25 @@ export class TaskAttachmentLinkDirective {
           type: 'ERROR',
         });
       }
-    } else if (this.type() === 'LINK') {
-      this._openExternalUrl(href);
     }
+    // Web link attachments: the browser follows the native href (nativeHref).
   }
 
   private _isLocalFileUrl(url: string): boolean {
     return url.toLowerCase().startsWith('file://');
   }
 
+  // try to account for jira(?) adding a second http to the url
+  private _normalizeUrl(rawUrl: string): string {
+    return rawUrl
+      .replace('https://https://', 'https://')
+      .replace('http://http://', 'http://');
+  }
+
   private _openExternalUrl(rawUrl: string): void {
     if (!rawUrl) {
       return;
     }
-
-    // try to account for jira(?) adding a second http to the url
-    const url = rawUrl
-      .replace('https://https://', 'https://')
-      .replace('http://http://', 'http://');
-
-    if (IS_ELECTRON) {
-      window.ea.openExternalUrl(url);
-    } else {
-      const win = window.open(url, '_blank');
-      if (win) {
-        win.focus();
-      }
-    }
+    window.ea.openExternalUrl(this._normalizeUrl(rawUrl));
   }
 }
