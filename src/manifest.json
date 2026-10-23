@@ -7,6 +7,9 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "scope": "./",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "allowJsEval": true,
   "icons": [
     {
