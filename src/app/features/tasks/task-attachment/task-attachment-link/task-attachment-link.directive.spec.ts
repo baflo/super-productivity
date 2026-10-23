@@ -78,18 +78,63 @@ describe('TaskAttachmentLinkDirective', () => {
     });
   });
 
-  it('should keep opening regular links outside electron', () => {
+  it('should open regular links outside electron as a native link', () => {
     fixture.detectChanges();
-    spyOn(window, 'open').and.returnValue(null);
+    spyOn(window, 'open');
 
     const link = fixture.debugElement.query(By.css('a'))
       .nativeElement as HTMLAnchorElement;
     const ev = new MouseEvent('click', { bubbles: true, cancelable: true });
+    // Record what the directive did, then stop the real navigation the native
+    // href would start inside the test runner.
+    let isPreventedByDirective: boolean | undefined;
+    const stopNavigation = (e: Event): void => {
+      isPreventedByDirective = e.defaultPrevented;
+      e.preventDefault();
+    };
+    document.addEventListener('click', stopNavigation);
 
     link.dispatchEvent(ev);
+    document.removeEventListener('click', stopNavigation);
 
-    expect(ev.defaultPrevented).toBeFalse();
-    expect(window.open).toHaveBeenCalledWith('https://example.com', '_blank');
+    // A user-followed link (not window.open) is what an installed PWA that
+    // captures the URL takes over.
+    expect(link.getAttribute('href')).toBe('https://example.com');
+    expect(link.getAttribute('rel')).toBe('noopener');
+    expect(isPreventedByDirective).toBeFalse();
+    expect(window.open).not.toHaveBeenCalled();
     expect(snackService.open).not.toHaveBeenCalled();
+  });
+
+  it('should normalize a doubled scheme in the native href', () => {
+    fixture.componentInstance.href = 'https://https://example.com/x';
+    fixture.detectChanges();
+
+    const link = fixture.debugElement.query(By.css('a'))
+      .nativeElement as HTMLAnchorElement;
+
+    expect(link.getAttribute('href')).toBe('https://example.com/x');
+  });
+
+  it('should not give image attachments a native href', () => {
+    fixture.componentInstance.href = 'https://example.com/a.png';
+    fixture.componentInstance.type = 'IMG';
+    fixture.detectChanges();
+
+    const link = fixture.debugElement.query(By.css('a'))
+      .nativeElement as HTMLAnchorElement;
+
+    expect(link.hasAttribute('href')).toBeFalse();
+    expect(link.hasAttribute('rel')).toBeFalse();
+  });
+
+  it('should not give local file links a native href', () => {
+    fixture.componentInstance.href = 'file:///home/user/a.txt';
+    fixture.detectChanges();
+
+    const link = fixture.debugElement.query(By.css('a'))
+      .nativeElement as HTMLAnchorElement;
+
+    expect(link.hasAttribute('href')).toBeFalse();
   });
 });
