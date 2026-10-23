@@ -65,6 +65,10 @@
   border-radius: var(--card-border-radius);
   cursor: pointer;
   box-sizing: border-box;
+  // link attachments carry a real href; keep the card looking like a card
+  // instead of the global `a[href]` link color and the default underline
+  color: inherit;
+  text-decoration: none;
 
   &:focus {
     outline: none;
