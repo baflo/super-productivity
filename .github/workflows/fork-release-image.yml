@@ -1,6 +1,6 @@
 # Fork-only: when Super Productivity publishes a new release, builds the web
-# Docker image of that release with this fork's patches (the commits of
-# PATCH_BRANCH that are not in upstream master) and publishes it to the fork's
+# Docker image of that release with this fork's patches (the commits on the
+# fork's master that are not in upstream master) and publishes it to the fork's
 # GitHub Container Registry:
 #   docker pull ghcr.io/<owner>/super-productivity:<version>   (or :latest)
 # Runs daily, since upstream releases cannot trigger workflows in a fork.
@@ -27,7 +27,6 @@ permissions:
 
 env:
   UPSTREAM: super-productivity/super-productivity
-  PATCH_BRANCH: pwa-launch-handler
 
 jobs:
   release_image:
@@ -88,8 +87,8 @@ jobs:
           git fetch --no-tags "https://github.com/$UPSTREAM.git" \
             "+refs/heads/master:refs/remotes/upstream/master" \
             "+refs/tags/$TAG:refs/tags/$TAG"
-          patches=$(git rev-list --reverse --no-merges "origin/$PATCH_BRANCH" --not upstream/master)
-          echo "Patches from $PATCH_BRANCH:"
+          patches=$(git rev-list --reverse --no-merges origin/master --not upstream/master)
+          echo "Patches from master:"
           git log --no-walk=unsorted --oneline $patches
           git checkout --detach "$TAG"
           git cherry-pick $patches
